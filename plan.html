@@ -1,78 +1,81 @@
 <!DOCTYPE html>
 <html lang="mn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Meal Planner</title>
     <link rel="stylesheet" href="plan.css">
 </head>
+
 <body>
 
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            <img src="/iconpic/logo.png" alt="Logo" width="45" height="45">
-        </div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="/iconpic/logo.png" alt="Logo" width="45" height="45">
+            </div>
 
-        <div class="search-bar">
-            <input type="text" placeholder="Хоолны нэр">
-        </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Хоолны нэр">
+            </div>
 
-        <div class="icons">
-            <img src="iconpic/log-out.png" alt="LogOut Icon">
-            <img src="/iconpic/fridge.png" alt="Fridge Icon">
-            <img src="/iconpic/plan.png" alt="Plan Icon">
-            <img src="/iconpic/food.png" alt="Food Icon">
-            <img src="/iconpic/profile.png" alt="Profile Icon">
+            <div class="icons">
+                <a href="index.html"><img src="/iconpic/log-out.png" alt="log-out"></a>
+                <a href="fridge.html"><img src="/iconpic/fridge.png" alt="fridge" id="nav-img"></a>
+                <a href="plan.html"><img src="/iconpic/plan.png" alt="plan" id="nav-img"></a>
+                <a href="food.html"><img src="/iconpic/food.png" alt="food" id="nav-img"></a>
+                <a href="profile.html"><img src="/iconpic/profile.png" alt="profile" id="nav-img"></a>
+            </div>
         </div>
+        <table class="meal-planner">
+            <thead>
+                <tr>
+                    <th class="meal-times"></th>
+                    <th class="days">Даваа</th>
+                    <th class="days">Мягмар</th>
+                    <th class="days">Лхагва</th>
+                    <th class="days">Пүрэв</th>
+                    <th class="days">Баасан</th>
+                    <th class="days">Бямба</th>
+                    <th class="days">Ням</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Өглөө">Өглөө</td>
+                    <td data-label="Даваа"></td>
+                    <td data-label="Мягмар"></td>
+                    <td data-label="Лхагва"></td>
+                    <td data-label="Пүрэв"></td>
+                    <td data-label="Баасан"></td>
+                    <td data-label="Бямба"></td>
+                    <td data-label="Ням"></td>
+                </tr>
+                <tr>
+                    <td data-label="Өдөр">Өдөр</td>
+                    <td data-label="Даваа"></td>
+                    <td data-label="Мягмар"></td>
+                    <td data-label="Лхагва"></td>
+                    <td data-label="Пүрэв"></td>
+                    <td data-label="Баасан"></td>
+                    <td data-label="Бямба"></td>
+                    <td data-label="Ням"></td>
+                </tr>
+                <tr>
+                    <td data-label="Орой">Орой</td>
+                    <td data-label="Даваа"></td>
+                    <td data-label="Мягмар"></td>
+                    <td data-label="Лхагва"></td>
+                    <td data-label="Пүрэв"></td>
+                    <td data-label="Баасан"></td>
+                    <td data-label="Бямба"></td>
+                    <td data-label="Ням"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="meal-planner">
-        <thead>
-            <tr>
-                <th class="meal-times"></th>
-                <th class="days">Даваа</th>
-                <th class="days">Мягмар</th>
-                <th class="days">Лхагва</th>
-                <th class="days">Пүрэв</th>
-                <th class="days">Баасан</th>
-                <th class="days">Бямба</th>
-                <th class="days">Ням</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td data-label="Өглөө">Өглөө</td>
-                <td data-label="Даваа"></td>
-                <td data-label="Мягмар"></td>
-                <td data-label="Лхагва"></td>
-                <td data-label="Пүрэв"></td>
-                <td data-label="Баасан"></td>
-                <td data-label="Бямба"></td>
-                <td data-label="Ням"></td>
-            </tr>
-            <tr>
-                <td data-label="Өдөр">Өдөр</td>
-                <td data-label="Даваа"></td>
-                <td data-label="Мягмар"></td>
-                <td data-label="Лхагва"></td>
-                <td data-label="Пүрэв"></td>
-                <td data-label="Баасан"></td>
-                <td data-label="Бямба"></td>
-                <td data-label="Ням"></td>
-            </tr>
-            <tr>
-                <td data-label="Орой">Орой</td>
-                <td data-label="Даваа"></td>
-                <td data-label="Мягмар"></td>
-                <td data-label="Лхагва"></td>
-                <td data-label="Пүрэв"></td>
-                <td data-label="Баасан"></td>
-                <td data-label="Бямба"></td>
-                <td data-label="Ням"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
 </body>
+
 </html>
