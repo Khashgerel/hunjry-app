@@ -22,7 +22,7 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.header {
+header {
     background-color: #c7f0c2;
     display: flex;
     align-items: center;
@@ -152,24 +152,23 @@ body {
     background-color: #56C55A;
 }
 
-/* Responsive Styles */
 @media screen and (max-width: 1024px) {
     .recipe-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        grid-template-columns: repeat(2, 1fr); 
     }
 
     .filter-btn {
-        font-size: 12px; /* Adjusted font size */
+        font-size: 12px; 
     }
 
     .search-bar input {
-        width: 80%; /* Make the search input wider */
+        width: 80%; 
     }
 }
 
 @media screen and (max-width: 768px) {
     .recipe-grid {
-        grid-template-columns: 1fr; /* 1 column */
+        grid-template-columns: 1fr; 
     }
 
     .header {
@@ -178,7 +177,7 @@ body {
     }
 
     .search-bar {
-        margin: 10px 0; /* Add margin for spacing */
+        margin: 10px 0; 
     }
 
     .icons {
@@ -186,28 +185,28 @@ body {
     }
 
     .filter-btn {
-        padding: 8px 15px; /* Adjust padding for smaller screens */
+        padding: 8px 15px; 
     }
 
     .view-recipe-btn {
-        width: 100%; /* Full-width button */
+        width: 100%; 
     }
 }
 
 @media screen and (max-width: 480px) {
     .recipe-card {
-        padding: 15px; /* Reduce padding */
+        padding: 15px; 
     }
 
     .recipe-card h3 {
-        font-size: 16px; /* Smaller title font size */
+        font-size: 16px; 
     }
 
     .recipe-card p {
-        font-size: 12px; /* Smaller paragraph font size */
+        font-size: 12px; 
     }
 
     .view-recipe-btn {
-        padding: 8px; /* Smaller button padding */
+        padding: 8px; 
     }
 }

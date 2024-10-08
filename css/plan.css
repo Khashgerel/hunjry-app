@@ -21,7 +21,7 @@ html, body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.header {
+header {
     background-color: #c7f0c2;
     display: flex;
     align-items: center;
