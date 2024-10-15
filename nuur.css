@@ -76,6 +76,8 @@ nav {
     color: #333;
     font-size: 48px;
     margin: 10px 0;
+    font-family: 'Comforter Brush', cursive;
+    font-weight: normal;
 }
 
 .hero-content button {
@@ -86,6 +88,8 @@ nav {
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
+    font-family: Istok Web;
+    font-style: italic;
 }
 
 .hero-content button:hover {
