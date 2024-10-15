@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #6C837B;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding: 10px;
+}
+
+#search-bar {
+    width: 300px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+   
+.image {
+    display: flex; 
+    gap: 15px;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;}
+.image img {
+    width: 35px;
+    height: 35px;
+    filter: brightness(0) invert(1); /*internetees haisan chini l iim ym garj irsen shuu*/
+}
+.icons {
+    display: flex;
+    gap: 15px;
+}
+
+.hero {
+    background-image: url("/image/background.jpg");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero-content h1, .hero-content h2 {
+    color: #333;
+    font-size: 48px;
+    margin: 10px 0;
+}
+
+.hero-content button {
+    background-color: #6C837B;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.hero-content button:hover {
+    background-color: #5c724e;
+}
+
+footer {
+    background-color: #e0e0e0;
+    padding: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+footer h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+}
+
+footer ul li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

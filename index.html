@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunjry</title>
+</head>
+
+<body>
+    <header id="header">
+        <nav id="nav-bar">
+            <a href="/htmls/index.html"><img src="Hunjry.png" alt="logo" width="50" height="50" style="border-radius: 50%;"></a>
+            <input type="search" name="search" id="search-bar" placeholder="Хоолны нэр">
+            <a href="/htmls/index.html"><img src="log-out.png" alt="log-out" width="50" height="50"></a>
+            <a href="fridge.html"><img src="fridge.png" alt="fridge" id="nav-img" width="50" height="50"></a>
+            <a href="/htmls/plan.html"><img src="plan.png" alt="plan" id="nav-img" width="50" height="50"></a>
+            <a href="food.html"><img src="food.png" alt="food" id="nav-img" width="50" height="50"></a>
+            <a href="profile.html"><img src="profile.png" alt="profile" id="nav-img" width="50" height="50"></a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="container-type">
+                <Button onclick="Dropdown()" class="dropbtn-breakfast">
+                    Breakfast
+                </Button>
+                
+                <Button>
+                    Lunch
+                </Button>
+                <Button>
+                    Dinner
+                </Button>
+                <Button>
+                    Special
+                </Button>
+            </div>
+            <h2>Top foods of the week</h2>
+            <nav>
+                <input type="button" name="back" id="btn-back" value="<">
+                <img src="foodpic.png" alt="food">
+                <input type="button" name="forward" id="btn-fr" value=">">
+                
+            </nav>
+        </section>
+    </main>
+</body>
+
+</html>
