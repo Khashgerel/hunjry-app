@@ -120,11 +120,11 @@ main {
 .recipe-card h3 {
     padding-top: 20px;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .recipe-card p {
-    font-size: 14px;
+    font-size: 20px;
     color: #777;
     margin: 5px 0;
 }
