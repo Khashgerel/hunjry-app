@@ -75,10 +75,12 @@ h2 {
     min-width: 400px; 
     margin:30px
 }
+
 .user_info section{
     display: flex;
     flex-direction: column;
 }
+
 .user_info p {
     margin: 15px;
     font-size: 16px;
@@ -107,7 +109,7 @@ h2 {
     text-align: center;
 }
 
-.logout {
+article a{
     color: #030000;
     text-decoration: none;
     font-size: 16px;
