@@ -144,7 +144,6 @@ header {
     border-radius: 50%;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
     .recipe-image img {
         max-width: 90%;
@@ -166,7 +165,7 @@ main {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px;
-    margin-top: 80px; /* Adjust for fixed header */
+    margin-top: 80px;
 }
 
 main img {
@@ -176,7 +175,6 @@ main img {
     margin-bottom: 10px;
 }
 
-/* Content Containers */
 .recipe-content {
     display: flex;
     justify-content: space-between;
