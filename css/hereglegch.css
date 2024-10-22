@@ -70,11 +70,15 @@ h2 {
     padding: 20px;
     border-radius: 10px;
     width: 30%; 
+    height: 14rem;
     text-align: left;
     min-width: 400px; 
     margin:30px
 }
-
+.user_info section{
+    display: flex;
+    flex-direction: column;
+}
 .user_info p {
     margin: 15px;
     font-size: 16px;
@@ -88,8 +92,7 @@ h2 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    position: relative;
-    left: 0;
+    float: right;
 }
 
 .user_info a {
