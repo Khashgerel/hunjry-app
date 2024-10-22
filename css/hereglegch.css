@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: #FBF8F1;
@@ -16,6 +17,9 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
 
 .icons {
@@ -55,7 +59,7 @@ main {
     background-color: #FBF8F1;
     border-radius: 10px;
     margin: 20px;
-    gap: 20px; 
+    gap: 20px;
 }
 
 h2 {
@@ -69,14 +73,14 @@ h2 {
     background-color: #C2C9C6;
     padding: 20px;
     border-radius: 10px;
-    width: 30%; 
+    width: 30%;
     height: 14rem;
     text-align: left;
-    min-width: 400px; 
-    margin:30px
+    min-width: 400px;
+    margin: 30px
 }
 
-.user_info section{
+.user_info section {
     display: flex;
     flex-direction: column;
 }
@@ -101,15 +105,16 @@ h2 {
     justify-content: flex-end;
 }
 
-.main_info{
+.main_info {
     display: inline-flex;
+    padding-top: 45px;
 }
 
 .profile{
     text-align: center;
 }
 
-article a{
+article a {
     color: #030000;
     text-decoration: none;
     font-size: 16px;
@@ -120,11 +125,11 @@ article a{
     display: flex;
     flex-wrap: wrap;
     column-gap: px;
-    width: 100%; 
+    width: 100%;
     justify-content: flex-start;
 }
 
-button{
+button {
     justify-content: right;
 }
 
@@ -167,8 +172,9 @@ button{
         align-items: center;
     }
 
-    .user_info, .user_favs {
-        width: 100%; 
+    .user_info,
+    .user_favs {
+        width: 100%;
         max-width: 100%;
     }
 
