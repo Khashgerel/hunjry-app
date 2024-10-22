@@ -161,11 +161,11 @@ header {
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-flex;
     justify-content: space-between;
     padding: 20px;
     margin-top: 80px;
+    column-gap: 20px;
 }
 
 main img {
@@ -176,7 +176,7 @@ main img {
 }
 
 .recipe-content {
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     width: 100%;
     gap: 20px;
