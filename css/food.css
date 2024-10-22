@@ -17,6 +17,8 @@ footer {
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #ccc;
+    position: relative;
+    bottom: 0;
 }
 
 footer section {
@@ -94,13 +96,18 @@ header {
 }
 
 main {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #e0e0e0;
+    position: static;
+    justify-content: space-evenly;
 }
 
 .filter-section {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    padding-top: 40px;
 }
 
 .filter-btn {
@@ -119,42 +126,46 @@ main {
 }
 
 .recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     align-items: center;
-    justify-content: center;
-    column-width: 30rem;
-    gap: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .recipe-card {
-    display: grid;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    height: 100%;
-    width: 30rem;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: repeat(4, 20px);
-    row-gap: 20px;
-    column-gap: 10px;
+    display: flex;
+    background-color: transparent;
+    padding-bottom: 20px;
+    width: 45%;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 .recipe-card img {
-    grid-row-start: 1;
-    grid-row-end: 5;
-    width: 90%;
-    height: 90%;
+    width: 330px;
+    height: 330px;
     border-radius: 5px;
-    margin-right: 15px;
+}
+
+.recipe-card .food-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ports {
+    display: flex;
+    justify-content: left;
+}
+
+.ports img {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
 }
 
 .recipe-card h3 {
-    padding-top: 30px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
     font-size: 22px;
 }
 
@@ -170,11 +181,13 @@ main {
     color: white;
     padding: 10px;
     border: none;
+    font-size: 15px;
     border-radius: 20px;
     margin-top: 10px;
     cursor: pointer;
     text-align: center;
     width: 120px;
+    height: 40px;
 }
 
 .pagination {
@@ -207,6 +220,20 @@ main {
 
     .search-bar input {
         width: 80%;
+    }
+
+    .recipe-card img {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .ports img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .recipe-card h3 {
+        font-size: 16px;
     }
 }
 
