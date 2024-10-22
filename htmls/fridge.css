@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #6C837B;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#search-bar {
+    width: 300px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.image {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+}
+
+.image img {
+    width: 35px;
+    height: 35px;
+    filter: brightness(0) invert(1);
+}
+
+main {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.orts {
+    width: 25%;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#orts-search {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-bottom: 20px;
+}
+
+.orts-list {
+    list-style-type: none;
+}
+
+.orts-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.categories {
+    width: 70%;
+    background-color: #d3d3d3;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.column {
+    width: 23%;
+    text-align: center;
+    border-left: 1px solid black;
+    padding: 10px 0;
+}
+
+.container li:first-child {
+    border-left: none;
+}
+
+
+footer {
+    background-color: #e0e0e0;
+    padding: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+footer h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+}
+
+footer ul li:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+footer p {
+    text-align: center;
+    margin-top: 20px;
+}
