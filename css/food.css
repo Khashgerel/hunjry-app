@@ -48,7 +48,7 @@ footer span {
     text-align: center;
 }
 
-footer a:hover{
+footer a:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -65,44 +65,50 @@ footer a:hover{
 
 header {
     background-color: #6C837B;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    border-radius: 10px 10px 0 0;
 }
 
 .logo {
     width: 50px;
-    height: 50px;
+    height: auto;
 }
 
-.logo img {
-    border-radius: 10px;
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
 }
 
-.search-bar {
-    flex-grow: 2;
-    margin: 0 20px;
-}
-
-.search-bar input {
-    width: 70%;
-    padding: 10px;
+#search-bar {
+    width: 300px;
+    padding: 5px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 25px;
+}
+
+.image {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    right: 16px;
+    font-size: 18px;
+}
+
+.image img {
+    width: 35px;
+    height: 35px;
+    filter: brightness(0) invert(1);
+    /*internetees haisan chini l iim ym garj irsen shuu*/
 }
 
 .icons {
     display: flex;
     gap: 15px;
-    filter: brightness(0) invert(1);
-}
-
-.icons img {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
 }
 
 main {
