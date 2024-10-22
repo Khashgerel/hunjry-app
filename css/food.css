@@ -19,6 +19,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #e0e0e0;
 }
 
 article {
@@ -32,6 +33,7 @@ footer h3 {
 }
 
 footer ul {
+    list-style: none;
     display: grid;
     row-gap: 8px;
 }
@@ -44,6 +46,11 @@ footer a {
 footer span {
     padding: 15px;
     text-align: center;
+}
+
+footer a:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .container {
