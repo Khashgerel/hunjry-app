@@ -74,6 +74,7 @@ main {
 }
 
 .hero {
+    background-image: url("/foodpic/519.jpg"); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
