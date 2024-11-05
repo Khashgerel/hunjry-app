@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recipesData = data.recipes;
 
         const urlParams = new URLSearchParams(window.location.search);
-        const filter = urlParams.get('filter') || 'All';
+        const filter = urlParams.get('mealType') || 'All';
 
         applyFilter(filter);
         setupFilterButtons();
@@ -47,7 +47,7 @@ function setupFilterButtons() {
     button.addEventListener('click', () => {
       activeFilter = button.getAttribute('data-filter');
       const url = new URL(window.location);
-      url.searchParams.set('filter', activeFilter);
+      url.searchParams.set('mealType', activeFilter);
       window.history.pushState({}, '', url);
 
       applyFilter(activeFilter);
@@ -75,7 +75,7 @@ function displayRecipes(page) {
                 <section class="ports">
                     ${'<img src="/iconpic/profile.png">'.repeat(recipe.servings)}
                 </section>
-                <button class="view-recipe-btn">Жор</button>
+                <button class="view-recipe-btn"><a href="/htmls/hool_detail.html?id=${recipe.id}">Жор харах</button>
             </section>
         `;
 
