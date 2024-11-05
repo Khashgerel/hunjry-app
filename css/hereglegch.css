@@ -63,7 +63,6 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 20px;
     border-radius: 10px;
     margin: 20px;
     gap: 20px;
@@ -268,3 +267,11 @@ footer ul li {
         color: white;
     }
 }
+
+.user_info button {
+    transition: background-color 2s 500ms;
+  }
+  
+  .user_info button:hover {
+    background-color: darkgreen;
+  }
