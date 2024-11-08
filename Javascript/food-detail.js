@@ -70,12 +70,14 @@ function updateIngredient(filter) {
   recipeContent.innerHTML = '';
 
   const recipe = recipesData.find(recipe => recipe.id === filter);
-  
+
   if (recipe) {
     recipeContent.innerHTML = `
       <section class="ingredients">
         <h2>Орц</h2>
-        <p>${recipe.ingredients.join('<br>')}</p>
+        <ol>
+          ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+        </ol>
       </section>
       <section class="instructions">
         <h2>Заавар</h2>
@@ -90,3 +92,4 @@ function updateIngredient(filter) {
     recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
   }
 }
+
