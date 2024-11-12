@@ -5,7 +5,7 @@ let filteredData = [];
 let activeFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('https://dummyjson.com/recipes')
+  fetch('/json/recipe.json')
     .then(response => response.json())
     .then(data => {
       if (data && data.recipes) {
@@ -27,7 +27,7 @@ function applyFilter(filter) {
   if (filter === 'All') {
     filteredData = recipesData;
   } else {
-    filteredData = recipesData.filter(recipe => recipe.mealType[0] === filter || recipe.mealType[1] === filter || recipe.mealType[2] === filter);
+    filteredData = recipesData.filter(recipe => recipe[0].mealType[0] === filter || recipe[0].mealType[1] === filter || recipe[0].mealType[2] === filter);
   }
   currentPage = 1;
   displayRecipes(currentPage);
@@ -68,14 +68,14 @@ function displayRecipes(page) {
     recipeCard.className = 'recipe-card';
 
     recipeCard.innerHTML = `
-            <img src="${recipe.image}" alt="${recipe.name}">
+            <img src="${recipe.english.image}" alt="${recipe.english.name}">
             <section class="food-info">
-                <h3>${recipe.name}</h3>
-                <p>${recipe.caloriesPerServing} кал</p>
+                <h3>${recipe.english.name}</h3>
+                <p>${recipe.english.caloriesPerServing} кал</p>
                 <section class="ports">
-                    ${'<img src="/iconpic/profile.png">'.repeat(recipe.servings)}
+                    ${'<img src="/iconpic/profile.png">'.repeat(recipe.english.servings)}
                 </section>
-                <button class="view-recipe-btn"><a href="/htmls/hool_detail.html?id=${recipe.id}">Жор харах</button>
+                <button class="view-recipe-btn"><a href="/htmls/hool_detail.html?id=${recipe.english.id}">Жор харах</button>
             </section>
         `;
 
