@@ -5,8 +5,6 @@ let filteredData = [];
 let activeFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const searchBar = document.getElementById('searchBar');
-  const resultsContainer = document.getElementById('results');
 
   fetch('/json/recipe.json')
     .then(response => response.json())
@@ -27,13 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const filterRecipes = (query) => {
-  query = query.trim().toLowerCase(); // Trim and lowercase the query for consistency
-  currentPage = 1; // Reset to first page
+  query = query.trim().toLowerCase(); 
+  currentPage = 1;
 
   filteredData = recipesData.filter(recipe =>
     recipe.name.toLowerCase().includes(query) &&
     (activeFilter === 'all' || recipe.mealType.includes(activeFilter))
   );
+
+  if (filteredData.length === 0) {
+    document.querySelector('.recipe-grid').innerHTML = '<p>No recipes found.</p>';
+    document.querySelector('.pagination').innerHTML = '';
+    return;
+  }
 
   displayRecipes(currentPage);
   renderPaginationControls();
