@@ -5,6 +5,9 @@ let filteredData = [];
 let activeFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const searchBar = document.getElementById('searchBar');
+  const resultsContainer = document.getElementById('results');
+
   fetch('/json/recipe.json')
     .then(response => response.json())
     .then(data => {
@@ -23,6 +26,25 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
 
+const filterRecipes = (query) => {
+  query = query.trim().toLowerCase(); // Trim and lowercase the query for consistency
+  currentPage = 1; // Reset to first page
+
+  filteredData = recipesData.filter(recipe =>
+    recipe.name.toLowerCase().includes(query) &&
+    (activeFilter === 'all' || recipe.mealType.includes(activeFilter))
+  );
+
+  displayRecipes(currentPage);
+  renderPaginationControls();
+};
+
+
+searchBar.addEventListener('input', (e) => {
+  const query = e.target.value;
+  filterRecipes(query);
+});
+
 function applyFilter(filter) {
   if (filter === 'All') {
     filteredData = recipesData;
@@ -34,11 +56,11 @@ function applyFilter(filter) {
   renderPaginationControls();
   document.querySelectorAll('.filter-btn').forEach(button => {
     if (button.textContent.trim() === filter) {
-        button.classList.add('active');
+      button.classList.add('active');
     } else {
-        button.classList.remove('active');
+      button.classList.remove('active');
     }
-});
+  });
 }
 
 function setupFilterButtons() {
