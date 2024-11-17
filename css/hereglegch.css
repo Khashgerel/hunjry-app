@@ -63,25 +63,23 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border-radius: 10px;
+    padding: 20px;
     margin: 20px;
     gap: 20px;
 }
 
 p {
-    font-size: 25px;
     font-weight: 400;
     letter-spacing: -0.20px;
 }
 
 h2 {
-    font-size: 100px;
     line-height: 98px;
     font-weight: 400;
 }
 
 h2 {
-    font-size: 22px;
+    font-size: 30px;
     color: #333;
     display: inline;
 }
@@ -93,18 +91,14 @@ h2 {
     width: 30%;
     height: 14rem;
     text-align: left;
+    min-height: 250px;
     min-width: 400px;
-    margin: 30px
-}
-
-.user_info section {
-    display: flex;
-    flex-direction: column;
+    margin: 20px
 }
 
 .user_info p {
     margin: 15px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .user_info button {
@@ -115,11 +109,12 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     float: right;
+    font-size: 20px;
 }
 
 .main_info {
     display: inline-flex;
-    padding-top: 55px;
+    padding-top: 45px;
 }
 
 .profile {
@@ -129,20 +124,18 @@ h2 {
 article a {
     color: #030000;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
 }
 
 .user_favs {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
 }
 
 .user_favs h2 {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
 }
 
 .user_favs article {
@@ -159,7 +152,7 @@ article a {
 }
 
 .user_favs p {
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none;
 }
 
