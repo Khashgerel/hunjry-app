@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('https://dummyjson.com/recipes')
+  fetch('/json/recipe.json')
     .then(response => response.json())
     .then(data => {
       if (data && data.recipes) {

@@ -1,0 +1,44 @@
+{
+    "users": [
+        {
+            "userId": 1,
+            "username": "Khashgerel",
+            "password": "aaaaaaaa",
+            "likedFoods": [
+            ],
+            "address": "UB",
+            "phoneNumber": 99854132,
+            "email": "kashatheeater@gmail.com"
+        },
+        {
+            "userId": 2,
+            "username": "Enkhjargal",
+            "password": "eeeeeeee",
+            "likedFoods": [
+            ],
+            "address": "UB",
+            "phoneNumber": 99854132,
+            "email": "kashatheeater@gmail.com"
+        },
+        {
+            "userId": 3,
+            "username": "Aiym",
+            "password": "iiiiiiii",
+            "likedFoods": [
+            ],
+            "address": "UB",
+            "phoneNumber": 99854132,
+            "email": "kashatheeater@gmail.com"
+        },
+        {
+            "userId": 4,
+            "username": "Uitumen",
+            "password": "uuuuuuuu",
+            "likedFoods": [
+            ],
+            "address": "UB",
+            "phoneNumber": 99854132,
+            "email": "kashatheeater@gmail.com"
+        }
+    ]
+}

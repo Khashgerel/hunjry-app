@@ -5,6 +5,7 @@ let filteredData = [];
 let activeFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', () => {
+
   fetch('/json/recipe.json')
     .then(response => response.json())
     .then(data => {
@@ -23,22 +24,47 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
 
+const filterRecipes = (query) => {
+  query = query.trim().toLowerCase(); 
+  currentPage = 1;
+
+  filteredData = recipesData.filter(recipe =>
+    recipe.name.toLowerCase().includes(query) &&
+    (activeFilter === 'all' || recipe.mealType.includes(activeFilter))
+  );
+
+  if (filteredData.length === 0) {
+    document.querySelector('.recipe-grid').innerHTML = '<p>No recipes found.</p>';
+    document.querySelector('.pagination').innerHTML = '';
+    return;
+  }
+
+  displayRecipes(currentPage);
+  renderPaginationControls();
+};
+
+
+searchBar.addEventListener('input', (e) => {
+  const query = e.target.value;
+  filterRecipes(query);
+});
+
 function applyFilter(filter) {
   if (filter === 'All') {
     filteredData = recipesData;
   } else {
-    filteredData = recipesData.filter(recipe => recipe[0].mealType[0] === filter || recipe[0].mealType[1] === filter || recipe[0].mealType[2] === filter);
+    filteredData = recipesData.filter(recipe => recipe.mealType[0] === filter || recipe.mealType[1] === filter || recipe.mealType[2] === filter);
   }
   currentPage = 1;
   displayRecipes(currentPage);
   renderPaginationControls();
   document.querySelectorAll('.filter-btn').forEach(button => {
     if (button.textContent.trim() === filter) {
-        button.classList.add('active');
+      button.classList.add('active');
     } else {
-        button.classList.remove('active');
+      button.classList.remove('active');
     }
-});
+  });
 }
 
 function setupFilterButtons() {
@@ -68,14 +94,14 @@ function displayRecipes(page) {
     recipeCard.className = 'recipe-card';
 
     recipeCard.innerHTML = `
-            <img src="${recipe.english.image}" alt="${recipe.english.name}">
+            <img src="${recipe.image}" alt="${recipe.name} class="food-pic"">
             <section class="food-info">
-                <h3>${recipe.english.name}</h3>
-                <p>${recipe.english.caloriesPerServing} кал</p>
+                <h3>${recipe.name}</h3>
+                <p>${recipe.caloriesPerServing} кал</p>
                 <section class="ports">
-                    ${'<img src="/iconpic/profile.png">'.repeat(recipe.english.servings)}
+                    ${'<img src="/iconpic/profile.png">'.repeat(recipe.servings)}
                 </section>
-                <button class="view-recipe-btn"><a href="/htmls/hool_detail.html?id=${recipe.english.id}">Жор харах</button>
+                <a href="/htmls/hool_detail.html?id=${recipe.id}"><button class="view-recipe-btn">Жор харах</button></a>
             </section>
         `;
 
