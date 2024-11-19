@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Carlito';
+}
+
 html,
 body {
     height: 100%;
@@ -10,13 +19,6 @@ body{
     --main-button-color: #6C837B;
     --main-ui-color: #C2C9C6;
     --main-footer-color: #eaeaea;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Untitled Serif';
 }
 
 header {
@@ -93,7 +95,8 @@ h2 {
     text-align: left;
     min-height: 250px;
     min-width: 400px;
-    margin: 20px
+    margin: 20px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .user_info p {
@@ -149,6 +152,7 @@ article a {
     height: 300px;
     border-radius: 8px;
     margin-bottom: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .user_favs p {

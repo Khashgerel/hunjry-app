@@ -1,18 +1,28 @@
-html,
-body {
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #FBF8F1;
-}
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Carlito';
+}
+
+html,
+body {
+    height: 100%;
+    background-color: var(--main-bg-color);
+}
+
+body{
+    --main-header-bg-color:#6C837B;
+    --main-bg-color:#FBF8F1;
+    --main-button-color: #6C837B;
+    --main-ui-color: #C2C9C6;
+    --main-footer-color: #eaeaea;
 }
 
 header {
-    background-color: #6C837B;
+    background-color: var(--main-header-bg-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -208,7 +218,8 @@ main img {
 }
 
 footer {
-    background-color: #eaeaea;
+    background-color: var(--main-footer-color);
+    background-image: linear-gradient(#ccc, var(--main-footer-color));
     padding: 20px;
     display: flex;
     justify-content: space-around;
@@ -222,7 +233,6 @@ footer section {
 
 footer h3 {
     margin-bottom: 10px;
-    color: #333;
 }
 
 footer ul {

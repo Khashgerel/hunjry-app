@@ -1,70 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Carlito';
 }
 
+html,
 body {
     height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #FBF8F1;
+    background-color: var(--main-bg-color);
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    height: 125vh;
-    max-width: 100%;
-    margin: 0 auto;
-    overflow: scroll;
-}
-
-footer {
-    background-color: #eaeaea;
-    padding: 20px;
-    display: flex;
-    justify-content: space-around;
-    border-top: 1px solid #ccc;
-    justify-content: flex-end;
-}
-
-footer section {
-    flex: 1;
-    margin: 0 10px;
-}
-
-footer h3 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-footer ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-footer ul li {
-    margin-bottom: 5px;
-}
-
-footer a:hover {
-    text-decoration: underline;
-    cursor: pointer;
+body{
+    --main-header-bg-color:#6C837B;
+    --main-bg-color:#FBF8F1;
+    --main-button-color: #6C837B;
+    --main-ui-color: #C2C9C6;
+    --main-footer-color: #eaeaea;
 }
 
 header {
-    background-color: #6C837B;
+    background-color: var(--main-header-bg-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    border-radius: 10px 10px 0 0;
     position: fixed;
     width: 100%;
-}
-
-header .logo img {
-    border-radius: 50%;
+    top: 0;
 }
 
 .icons {
@@ -200,4 +165,30 @@ main {
     .meal-times {
         width: 100%;
     }
+}
+footer {
+    background-color: var(--main-footer-color);
+    background-image: linear-gradient(#ccc, var(--main-footer-color));
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+}
+
+footer section {
+    flex: 1;
+    margin: 0 10px;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 5px;
 }
