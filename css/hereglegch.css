@@ -13,9 +13,9 @@ body {
     background-color: var(--main-bg-color);
 }
 
-body{
-    --main-header-bg-color:#6C837B;
-    --main-bg-color:#FBF8F1;
+body {
+    --main-header-bg-color: #6C837B;
+    --main-bg-color: #FBF8F1;
     --main-button-color: #6C837B;
     --main-ui-color: #C2C9C6;
     --main-footer-color: #eaeaea;
@@ -239,37 +239,43 @@ footer ul li {
         background-color: #333;
         color: #f5f5f5;
     }
+
     .user_info {
         background-color: #6C837B;
-        color: white; 
+        color: white;
     }
-        footer {
-            background-color: #444;
-            color: #f5f5f5;
-        }
+
+    footer {
+        background-color: #444;
+        color: #f5f5f5;
+    }
 
     footer ul li:hover {
         color: #ccc;
     }
-    h2{
+
+    h2 {
         color: white;
     }
-    h3{
+
+    h3 {
         color: white;
     }
+
     .user_info button {
         background-color: #cce7db;
         color: #030000;
     }
-    p{
+
+    p {
         color: white;
     }
 }
 
 .user_info button {
     transition: background-color 1s;
-  }
-  
-  .user_info button:hover {
+}
+
+.user_info button:hover {
     background-color: darkgreen;
-  }
+}
