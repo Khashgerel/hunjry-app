@@ -64,6 +64,7 @@ function setupDropdown() {
           const foodItem = document.createElement('section');
           foodItem.className = 'food-name';
           foodItem.innerHTML = `
+            <img src="${recipe.image}" alt="${recipe.name}">
             <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
           `;
           dropdownContainer.appendChild(foodItem);
