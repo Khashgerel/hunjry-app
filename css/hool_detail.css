@@ -82,9 +82,10 @@ header {
 }
 
 .rating-container {
-    
+    position: relative;
     gap: 5px;
     margin-top: 10px;
+    padding-right: -30px;
     float: right;
     cursor: pointer;
 }
