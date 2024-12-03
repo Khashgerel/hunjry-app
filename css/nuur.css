@@ -1,69 +1,64 @@
-html, body {
-    height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
+    font-family: 'Carlito';
 }
 
+html,
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    height: 100%;
+    background-color: var(--main-bg-color);
+}
+
+body{
+    --main-header-bg-color:#6C837B;
+    --main-bg-color:#FBF8F1;
+    --main-button-color: #6C837B;
+    --main-ui-color: #C2C9C6;
+    --main-footer-color: #eaeaea;
 }
 
 header {
-    background-color: #6C837B;
-    padding: 10px 20px;
+    background-color: var(--main-header-bg-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
 
-nav ul {
-    list-style: none;
+.icons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 15px;
+    filter: brightness(0) invert(1);
 }
 
-nav ul li {
-    margin: 0 10px;
+.icons img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }
 
-.logo {
-    width: 50px;
-    height: auto;
-}
-
-nav {
+.search-bar {
+    width: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-grow: 1;
 }
 
-#search-bar {
-    width: 300px;
-    padding: 5px;
-    font-size: 16px;
+.search-bar input {
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
 
-.image {
-    display: flex;
-    gap: 15px;
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
-}
-
-.image img {
-    width: 35px;
-    height: 35px;
-    filter: brightness(0) invert(1); /*internetees haisan l iim ym baisan shu*/
+.logo img {
+    border-radius: 10px;
 }
 
 main {
@@ -116,34 +111,28 @@ main {
 }
 
 footer {
-    background-color: #e0e0e0;
+    background-color: var(--main-footer-color);
+    background-image: linear-gradient(#ccc, var(--main-footer-color));
     padding: 20px;
-    width: 100%;
-    flex-shrink: 0;
-}
-
-.footer {
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+    border-top: 1px solid #ccc;
+}
+
+footer section {
+    flex: 1;
+    margin: 0 10px;
 }
 
 footer h3 {
-    font-size: 18px;
     margin-bottom: 10px;
 }
 
 footer ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
 }
 
 footer ul li {
-    margin-bottom: 8px;
-}
-
-footer ul li:hover {
-    text-decoration: underline;
-    cursor: pointer;
+    margin-bottom: 5px;
 }

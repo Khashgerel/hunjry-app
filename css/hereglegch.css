@@ -1,22 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Carlito';
+}
+
 html,
 body {
     height: 100%;
     background-color: var(--main-bg-color);
 }
 
-body{
-    --main-header-bg-color:#6C837B;
-    --main-bg-color:#FBF8F1;
+body {
+    --main-header-bg-color: #6C837B;
+    --main-bg-color: #FBF8F1;
     --main-button-color: #6C837B;
     --main-ui-color: #C2C9C6;
     --main-footer-color: #eaeaea;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Untitled Serif';
 }
 
 header {
@@ -93,7 +95,8 @@ h2 {
     text-align: left;
     min-height: 250px;
     min-width: 400px;
-    margin: 20px
+    margin: 20px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .user_info p {
@@ -149,6 +152,7 @@ article a {
     height: 300px;
     border-radius: 8px;
     margin-bottom: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .user_favs p {
@@ -158,6 +162,7 @@ article a {
 
 footer {
     background-color: var(--main-footer-color);
+    background-image: linear-gradient(#ccc, var(--main-footer-color));
     padding: 20px;
     display: flex;
     justify-content: space-around;
@@ -234,37 +239,43 @@ footer ul li {
         background-color: #333;
         color: #f5f5f5;
     }
+
     .user_info {
         background-color: #6C837B;
-        color: white; 
+        color: white;
     }
-        footer {
-            background-color: #444;
-            color: #f5f5f5;
-        }
+
+    footer {
+        background-color: #444;
+        color: #f5f5f5;
+    }
 
     footer ul li:hover {
         color: #ccc;
     }
-    h2{
+
+    h2 {
         color: white;
     }
-    h3{
+
+    h3 {
         color: white;
     }
+
     .user_info button {
         background-color: #cce7db;
         color: #030000;
     }
-    p{
+
+    p {
         color: white;
     }
 }
 
 .user_info button {
-    transition: background-color 2s 500ms;
-  }
-  
-  .user_info button:hover {
+    transition: background-color 1s;
+}
+
+.user_info button:hover {
     background-color: darkgreen;
-  }
+}
