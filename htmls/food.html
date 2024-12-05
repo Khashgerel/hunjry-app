@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Хоолны төрөл</title>
     <link rel="stylesheet" href="/css/food.css">
-    <script src="/Javascript/food-info.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/Javascript/food-info.js"></script>
+
 </head>
 
 <body>
@@ -16,16 +18,17 @@
         </a>
 
         <section class="search-bar">
-            <input type="search" name="search" id="search-bar" placeholder="Хоолны нэр">
+            <input type="text" name="search" id="search-bar" placeholder="Хоолны нэр">
+            <section class="dropdown-container"></section>
         </section>
 
-        <section class="icons">
+        <nav class="icons">
             <a href="nuur.html"><img src="/iconpic/log-out.png" alt="log-out"></a>
             <a href="fridge.html"><img src="/iconpic/fridge.png" alt="fridge" id="hurgugch"></a>
             <a href="plan.html"><img src="/iconpic/plan.png" alt="plan" id="tuluvluguu"></a>
             <a href="food.html"><img src="/iconpic/food.png" alt="food" id="hool"></a>
-            <a href="hereglegch.html"><img src="/iconpic/profile.png" alt="profile" id="hhereglegch"></a>
-        </section>
+            <a href="hereglegch.html"><img src="/iconpic/profile.png" alt="profile" id="hereglegch"></a>
+        </nav>
     </header>
 
     <main>

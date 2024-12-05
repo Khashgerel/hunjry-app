@@ -5,7 +5,6 @@ let filteredData = [];
 let activeFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', () => {
-
   fetch('/json/recipe.json')
     .then(response => response.json())
     .then(data => {
@@ -17,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         applyFilter(filter);
         setupFilterButtons();
+        setupDropdown();
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
@@ -25,12 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const filterRecipes = (query) => {
-  query = query.trim().toLowerCase(); 
+  query = query.trim().toLowerCase();
   currentPage = 1;
 
   filteredData = recipesData.filter(recipe =>
-    recipe.name.toLowerCase().includes(query) &&
-    (activeFilter === 'all' || recipe.mealType.includes(activeFilter))
+    recipe.name.toLowerCase().includes(query)
   );
 
   if (filteredData.length === 0) {
@@ -43,27 +42,58 @@ const filterRecipes = (query) => {
   renderPaginationControls();
 };
 
+function setupDropdown() {
+  const searchBar = document.querySelector('.search-bar');
+  const dropdownContainer = document.querySelector('.dropdown-container');
+  const searchbar = document.querySelector('#search-bar');
+  dropdownContainer.innerHTML = '';
+  dropdownContainer.style.display = 'none';
+  
+  searchbar.addEventListener('input', (e) => {
+    const query = e.target.value.trim().toLowerCase();
 
-searchBar.addEventListener('input', (e) => {
-  const query = e.target.value;
-  filterRecipes(query);
-});
+    dropdownContainer.innerHTML = '';
+
+    if (query) {
+      const filteredRecipes = recipesData.filter(recipe =>
+        recipe.name.toLowerCase().includes(query)
+      );
+
+      if (filteredRecipes.length > 0) {
+        filteredRecipes.forEach(recipe => {
+          const foodItem = document.createElement('section');
+          foodItem.className = 'food-name';
+          foodItem.innerHTML = `
+            <img src="${recipe.image}" alt="${recipe.name}">
+            <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
+          `;
+          dropdownContainer.appendChild(foodItem);
+        });
+        dropdownContainer.style.display = 'block'; 
+      } else {
+        dropdownContainer.style.display = 'none'; 
+      }
+    } else {
+      dropdownContainer.style.display = 'none'; 
+    }
+    searchBar.appendChild(dropdownContainer);
+  });
+}
+
 
 function applyFilter(filter) {
   if (filter === 'All') {
     filteredData = recipesData;
   } else {
-    filteredData = recipesData.filter(recipe => recipe.mealType[0] === filter || recipe.mealType[1] === filter || recipe.mealType[2] === filter);
+    filteredData = recipesData.filter(recipe =>
+      recipe.mealType.some(type => type === filter)
+    );
   }
   currentPage = 1;
   displayRecipes(currentPage);
   renderPaginationControls();
   document.querySelectorAll('.filter-btn').forEach(button => {
-    if (button.textContent.trim() === filter) {
-      button.classList.add('active');
-    } else {
-      button.classList.remove('active');
-    }
+    button.classList.toggle('active', button.textContent.trim() === filter);
   });
 }
 
@@ -94,16 +124,18 @@ function displayRecipes(page) {
     recipeCard.className = 'recipe-card';
 
     recipeCard.innerHTML = `
-            <img src="${recipe.image}" alt="${recipe.name} class="food-pic"">
-            <section class="food-info">
-                <h3>${recipe.name}</h3>
-                <p>${recipe.caloriesPerServing} кал</p>
-                <section class="ports">
-                    ${'<img src="/iconpic/profile.png">'.repeat(recipe.servings)}
-                </section>
-                <a href="/htmls/hool_detail.html?id=${recipe.id}"><button class="view-recipe-btn">Жор харах</button></a>
-            </section>
-        `;
+      <img src="${recipe.image}" alt="${recipe.name}" class="food-pic">
+      <section class="food-info">
+        <h3>${recipe.name}</h3>
+        <p>${recipe.caloriesPerServing || 'N/A'} кал</p>
+        <section class="ports">
+          ${recipe.servings ? '<img src="/iconpic/profile.png">'.repeat(recipe.servings) : 'N/A'}
+        </section>
+        <a href="/htmls/hool_detail.html?id=${recipe.id}">
+          <button class="view-recipe-btn">Жор харах</button>
+        </a>
+      </section>
+    `;
 
     recipeGrid.appendChild(recipeCard);
   });
@@ -114,6 +146,11 @@ function renderPaginationControls() {
   paginationSection.innerHTML = '';
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  if (totalPages === 0) {
+    paginationSection.innerHTML = '<p>No pages to display.</p>';
+    return;
+  }
 
   for (let i = 1; i <= totalPages; i++) {
     const paginationButton = document.createElement('button');
