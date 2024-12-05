@@ -10,18 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const recipe = recipesData.find(recipe => recipe.id === filter);
 
         updateImage(filter);
-        setupSuggestedFood(filter, recipe.mealType);
         updateIngredient(filter);
+        setupSuggestedFood(filter, recipe.mealType);
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
     })
-    .catch(error => console.error('There has been a problem with your fetch operation:', error));
+    // .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
 
-function setupSuggestedFood(id, mealtype) {
-  const sugFoods = document.querySelector('.suggested-foods');
-  sugFoods.innerHTML = ''; 
+async function setupSuggestedFood(id, mealtype) {
+  const sugFoods = document.querySelector("#suggested-foods");
+  sugFoods.innerHTML = await '';
   const filteredData = recipesData.filter(recipe =>
     recipe.mealType.includes(mealtype) && recipe.id !== id
   );
@@ -42,6 +42,9 @@ function setupSuggestedFood(id, mealtype) {
     `;
     sugFoods.appendChild(sugFood);
   });
+  const url = new URL(window.location);
+  url.searchParams.set('id', recipe.id);
+  window.history.pushState({}, '', url);
 }
 
 function updateImage(filter) {
@@ -88,10 +91,6 @@ function updateIngredient(filter) {
         <p>${recipe.instructions.join('<br>')}</p>
       </section>
     `;
-
-    const url = new URL(window.location);
-    url.searchParams.set('id', recipe.id);
-    window.history.pushState({}, '', url);
   } else {
     recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
   }

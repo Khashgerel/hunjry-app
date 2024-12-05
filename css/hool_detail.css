@@ -68,7 +68,7 @@ header {
 
 .recipe-image {
     margin-bottom: 20px;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 .recipe-image img {
@@ -113,7 +113,6 @@ header {
 /* Comments Section */
 .comments {
     padding: 15px;
-    margin-top: 20px;
 }
 
 .comments h3 {
@@ -149,6 +148,7 @@ header {
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    width: 380px;
 }
 
 .comment img {
@@ -178,11 +178,12 @@ header {
 }
 
 main {
-    display: inline-flex;
-    justify-content: space-between;
-    padding: 0px 200px;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
     margin-top: 80px;
-    column-gap: 20px;
+    height: 100vh;
+    gap: 25px;
 }
 
 main img {
@@ -193,17 +194,20 @@ main img {
 }
 
 .recipe-content {
-    display: inline-flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    width: 800px;
+    height: 100%;
+    gap: 40px;
 }
 
 .ingredients,
 .instructions {
-    width: 50%;
+    width: 100%;
+    height: 100%;
     background-color: #FFF;
-    padding: 20px;
+    padding: 25px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -215,16 +219,15 @@ main img {
     margin-bottom: 15px;
 }
 
-.ingredients ol,
-.instructions ul {
+.ingredients ol {
     padding: 0;
     list-style-type: none;
 }
 
 .ingredients li,
-.instructions li {
-    font-size: 16px;
-    margin-bottom: 10px;
+.instructions p {
+    font-size: 20px;
+    line-height: 30px;
 }
 
 footer {

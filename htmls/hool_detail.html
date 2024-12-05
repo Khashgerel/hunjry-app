@@ -9,7 +9,7 @@
     <!--body доторх хэсгээр оролдоогүй. Хэрвээ хуучнаар нь харахаар бол яг энэ доор байгаа script хэсгийг арилгаарай.
     Зөвхөн food хэсгээс "Жор харах" дарах үед Js ажиллана. Like, Comment ажиллахгүй. 
     URL дээр id гэсний ард нь 1-30 хооронд тоо оруулсан ч болно.-->
-    <!--<script src="/Javascript/food-detail.js"></script>-->
+    <script src="/Javascript/food-detail.js"></script>
 </head>
 
 <body>
@@ -47,53 +47,30 @@
                     <img src="/iconpic/pizza.png" alt="unelgee">
                 </nav>
             </article>
-            
+            <section id="suggested-foods" class="suggested-foods">
+                <section class="suggested-food"></section>
+                <section class="suggested-food"></section>
+            </section>
         </section>
         <section class="recipe-content">
-            <section class="ingredients">
-                <h2>Орц</h2>
-                <ol>
-                    <li>1 (8 унц) хайрцаг тохой макарон</li>
-                    <li>¼ аяга цөцгийн тос</li>
-                    <li>¼ аяга бүх төрлийн гурил</li>
-                    <li>½ халбага давс</li>
-                    <li>амталгаагаар газрын хар чинжүү</li>
-                    <li>2 аяга сүү</li>
-                    <li>2 аяга жижиглэсэн Чеддар бяслаг</li>
-                </ol>
+        </section>
+        <section class="comments">
+            <h3>Сэтгэгдэл</h3>
+            <form class="comment-input">
+                <input type="text" placeholder="Сэтгэгдэл үлдээх">
+                <button type="submit">Нийтлэх</button>
+            </form>
+            <section class="comment">
+                <img src="/iconpic/profile.png" alt="user">
+                <p>Сайхан хоол байна. Лайк</p>
             </section>
-            <section class="instructions">
-                <h2>Заавар</h2>
-                <ul>
-                    <li>Найрлагыг нь цуглуул.</li>
-                    <li>Бага зэрэг давсалсан устай том саванд буцалгана. Тохойн макароныг буцалж буй усанд хийж, 8
-                        минутын турш чанаж болгосон боловч хазах хүртэл нь хааяа хутгана.</li>
-                    <li>Үүний зэрэгцээ, цөцгийн тосыг дунд зэргийн халуунд хайруулын тавган дээр хайлуулна.</li>
-                    <li>Гурил, давс, чинжүү нэмээд гөлгөр болтол 5 минут орчим хутгана.</li>
-                    <li>Тасралтгүй хутгахдаа сүүгээ аажмаар хийнэ. Үргэлжлүүлэн жигнэж, гөлгөр, хөөсөрхөх хүртэл 5 минут
-                        орчим хутгана, сүү нь шатахгүй байх ёстой.</li>
-                    <li>Чеддар бяслаг нэмээд хайлж дуустал 2-4 минут хутгана.</li>
-                    <li>Макароныг шавхаж, бүрсэн болтол нь бяслагны соус болгон нугалав.</li>
-                </ul>
+            <section class="comment">
+                <img src="/iconpic/profile.png" alt="user">
+                <p>Маш амттай!</p>
             </section>
-            <section class="comments">
-                <h3>Сэтгэгдэл</h3>
-                <form class="comment-input">
-                    <input type="text" placeholder="Сэтгэгдэл үлдээх">
-                    <button type="submit">Нийтлэх</button>
-                </form>
-                <section class="comment">
-                    <img src="/iconpic/profile.png" alt="user">
-                    <p>Сайхан хоол байна. Лайк</p>
-                </section>
-                <section class="comment">
-                    <img src="/iconpic/profile.png" alt="user">
-                    <p>Маш амттай!</p>
-                </section>
-                <section class="comment">
-                    <img src="/iconpic/profile.png" alt="user">
-                    <p>Дараа дахин хийх хэрэгтэй.</p>
-                </section>
+            <section class="comment">
+                <img src="/iconpic/profile.png" alt="user">
+                <p>Дараа дахин хийх хэрэгтэй.</p>
             </section>
         </section>
     </main>
