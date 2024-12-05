@@ -13,9 +13,9 @@ body {
     background-color: var(--main-bg-color);
 }
 
-body{
-    --main-header-bg-color:#6C837B;
-    --main-bg-color:#FBF8F1;
+body {
+    --main-header-bg-color: #6C837B;
+    --main-bg-color: #FBF8F1;
     --main-button-color: #6C837B;
     --main-ui-color: #C2C9C6;
     --main-footer-color: #eaeaea;
@@ -79,7 +79,7 @@ header {
     cursor: pointer;
 }
 
-.icon{
+.icon {
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
@@ -97,8 +97,7 @@ header {
 
 /* Comments Section */
 .comments {
-    padding: 15px;
-    margin-top: 20px;
+    padding: 30px;
 }
 
 .comments h3 {
@@ -144,13 +143,17 @@ header {
     .recipe-image img {
         max-width: 90%;
     }
-    .icons-container, .rating-container {
+
+    .icons-container,
+    .rating-container {
         justify-content: center;
     }
+
     .comment-input {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .comment-input input {
         width: 100%;
     }
@@ -159,7 +162,7 @@ header {
 main {
     display: inline-flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 0px 200px;
     margin-top: 80px;
     column-gap: 20px;
 }
@@ -177,26 +180,30 @@ main img {
     gap: 20px;
 }
 
-.ingredients, .instructions {
-    width: 48%;
+.ingredients,
+.instructions {
+    width: 50%;
     background-color: #FFF;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.ingredients h2, .instructions h2 {
+.ingredients h2,
+.instructions h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
 }
 
-.ingredients ol, .instructions ul {
+.ingredients ol,
+.instructions ul {
     padding: 0;
     list-style-type: none;
 }
 
-.ingredients li, .instructions li {
+.ingredients li,
+.instructions li {
     font-size: 16px;
     margin-bottom: 10px;
 }
@@ -231,42 +238,43 @@ footer ul li {
 .recipe-content {
     animation-duration: 3s;
     animation-name: slide-in;
-  }
-  
-  @keyframes slide-in {
-    from {
-      translate: 150vw 0;
-      scale: 200% 1;
-    }
-  
-    to {
-      translate: 0 0;
-      scale: 100% 1;
-    }
-  }
+}
 
-  @media (prefers-color-scheme: dark) {
+@keyframes slide-in {
+    from {
+        translate: 150vw 0;
+        scale: 200% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 100% 1;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
     body {
         background-color: #333;
     }
 
-        footer {
-            background-color: #444;
-            color: #f5f5f5;
-        }
+    footer {
+        background-color: #444;
+        color: #f5f5f5;
+    }
 
     footer ul li:hover {
         color: #ccc;
     }
-    h3{
+
+    h3 {
         color: white;
     }
 }
 
 .comment-input button {
     transition: background-color 2s 500ms;
-  }
-  
-  .comment-input button:hover {
+}
+
+.comment-input button:hover {
     background-color: darkgreen;
 }
