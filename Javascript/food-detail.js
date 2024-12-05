@@ -7,8 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const urlParams = new URLSearchParams(window.location.search);
         const filter = parseInt(urlParams.get('id'));
+        const recipe = recipesData.find(recipe => recipe.id === filter);
 
         updateImage(filter);
+        setupSuggestedFood(filter, recipe.mealType);
         updateIngredient(filter);
       } else {
         console.error('Data format error: No "recipes" array in JSON');
@@ -17,12 +19,37 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
 
+function setupSuggestedFood(id, mealtype) {
+  const sugFoods = document.querySelector('.suggested-foods');
+  sugFoods.innerHTML = ''; 
+  const filteredData = recipesData.filter(recipe =>
+    recipe.mealType.includes(mealtype) && recipe.id !== id
+  );
+
+  const suggestions = filteredData.slice(0, 2);
+
+  if (suggestions.length === 0) {
+    sugFoods.innerHTML = `<p>No suggestions available for this meal type.</p>`;
+    return;
+  }
+
+  suggestions.forEach(recipe => {
+    const sugFood = document.createElement('section');
+    sugFood.className = 'suggested-food';
+    sugFood.innerHTML = `
+      <img src="${recipe.image}" alt="${recipe.name}">
+      <h3>${recipe.name}</h3>
+    `;
+    sugFoods.appendChild(sugFood);
+  });
+}
+
 function updateImage(filter) {
   const recipeImage = document.querySelector('.recipe-image');
   recipeImage.innerHTML = '';
-  
+
   const recipe = recipesData.find(recipe => recipe.id === filter);
-  
+
   if (recipe) {
     recipeImage.innerHTML = `
       <img src="${recipe.image}" alt="${recipe.name}">
@@ -33,31 +60,8 @@ function updateImage(filter) {
           <img src="/iconpic/comment.png" alt="comment">
         </section>
         <nav class="rating-container">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
+          ${recipe.rating ? '<img src="/iconpic/pizza.png" alt="unelgee">'.repeat(recipe.rating) : 'N/A'}
         </nav>
-      </article>
-      <article class="comments">
-        <h3>Сэтгэгдэл</h3>
-        <form class="comment-input">
-          <input type="text" placeholder="Сэтгэгдэл үлдээх">
-          <button type="submit">Нийтлэх</button>
-        </form>
-        <section class="comment">
-          <img src="/iconpic/profile.png" alt="user">
-          <p>Сайхан хоол байна. Лайк</p>
-        </section>
-        <section class="comment">
-          <img src="/iconpic/profile.png" alt="user">
-          <p>Маш амттай!</p>
-        </section>
-        <section class="comment">
-          <img src="/iconpic/profile.png" alt="user">
-          <p>Дараа дахин хийх хэрэгтэй.</p>
-        </section>
       </article>
     `;
   } else {
@@ -92,4 +96,3 @@ function updateIngredient(filter) {
     recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
   }
 }
-

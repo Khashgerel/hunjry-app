@@ -53,7 +53,9 @@ header {
 
 .recipe-image {
     margin-bottom: 20px;
-    max-width: 400px;
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
 }
 
 .recipe-image img {
@@ -75,7 +77,7 @@ header {
     cursor: pointer;
 }
 
-.icon{
+.icon {
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
@@ -95,14 +97,38 @@ header {
     height: 20px;
 }
 
+.suggested-foods{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    gap: 20px;
+}
+
+.suggested-food{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.suggested-food img{
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+}
+
+.suggested-food h3{
+    font-size: 30px;
+    font-weight: bold;
+}
+
 /* Comments Section */
 .comments {
-    width: 100%;
+    width: 60%;
     background-color: #FFF;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    height: auto;
 }
 
 .comments h3 {
@@ -150,24 +176,29 @@ header {
     .recipe-image img {
         max-width: 90%;
     }
-    .icons-container, .rating-container {
+
+    .icons-container,
+    .rating-container {
         justify-content: center;
     }
+
     .comment-input {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .comment-input input {
         width: 100%;
     }
 }
 
 main {
-    display: inline-flex;
-    justify-content: space-between;
+    display: flex;
+    justify-content: space-evenly;
     padding: 20px;
     margin-top: 80px;
     column-gap: 20px;
+    height: 100vh;
 }
 
 main img {
@@ -178,34 +209,46 @@ main img {
 }
 
 .recipe-content {
-    display: inline-flex;
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     gap: 20px;
 }
 
-.ingredients, .instructions {
-    width: 48%;
+.ingredients,
+.instructions {
+    width: 90%;
+    height: 100%;
     background-color: #FFF;
-    padding: 20px;
+    padding: 20px 40px 40px 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.ingredients h2, .instructions h2 {
+.ingredients h2,
+.instructions h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
 }
 
-.ingredients ol, .instructions ul {
+.ingredients ol,
+.instructions ul {
+    margin-left: 10px;
     padding: 0;
-    list-style-type: none;
+    list-style-type: circle;
 }
 
-.ingredients li, .instructions li {
-    font-size: 16px;
+.ingredients li,
+.instructions p {
+    font-size: 19px;
     margin-bottom: 10px;
+    word-spacing: 3px;
+}
+
+.instructions p {
+    line-height: 30px;
 }
 
 footer {
@@ -238,42 +281,43 @@ footer ul li {
 .recipe-content {
     animation-duration: 3s;
     animation-name: slide-in;
-  }
-  
-  @keyframes slide-in {
-    from {
-      translate: 150vw 0;
-      scale: 200% 1;
-    }
-  
-    to {
-      translate: 0 0;
-      scale: 100% 1;
-    }
-  }
+}
 
-  @media (prefers-color-scheme: dark) {
+@keyframes slide-in {
+    from {
+        translate: 150vw 0;
+        scale: 200% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 100% 1;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
     body {
         background-color: #333;
     }
 
-        footer {
-            background-color: #444;
-            color: #f5f5f5;
-        }
+    footer {
+        background-color: #444;
+        color: #f5f5f5;
+    }
 
     footer ul li:hover {
         color: #ccc;
     }
-    h3{
+
+    h3 {
         color: white;
     }
 }
 
 .comment-input button {
     transition: background-color 2s 500ms;
-  }
-  
-  .comment-input button:hover {
+}
+
+.comment-input button:hover {
     background-color: darkgreen;
 }
