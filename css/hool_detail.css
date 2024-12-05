@@ -9,6 +9,21 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Carlito';
+}
+
+html,
+body {
+    height: 100%;
+    background-color: var(--main-bg-color);
+}
+
+body{
+    --main-header-bg-color:#6C837B;
+    --main-bg-color:#FBF8F1;
+    --main-button-color: #6C837B;
+    --main-ui-color: #C2C9C6;
+    --main-footer-color: #eaeaea;
 }
 
 header {
@@ -53,9 +68,7 @@ header {
 
 .recipe-image {
     margin-bottom: 20px;
-    max-width: 40%;
-    display: flex;
-    flex-direction: column;
+    max-width: 400px;
 }
 
 .recipe-image img {
@@ -97,38 +110,10 @@ header {
     height: 20px;
 }
 
-.suggested-foods{
-    display: flex;
-    justify-content: space-between;
-    padding-top: 10px;
-    gap: 20px;
-}
-
-.suggested-food{
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-}
-
-.suggested-food img{
-    border-radius: 5px;
-    width: 100%;
-    height: auto;
-}
-
-.suggested-food h3{
-    font-size: 30px;
-    font-weight: bold;
-}
-
 /* Comments Section */
 .comments {
-    width: 60%;
-    background-color: #FFF;
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: auto;
+    margin-top: 20px;
 }
 
 .comments h3 {
@@ -193,12 +178,11 @@ header {
 }
 
 main {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 20px;
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 0px 200px;
     margin-top: 80px;
     column-gap: 20px;
-    height: 100vh;
 }
 
 main img {
@@ -209,19 +193,17 @@ main img {
 }
 
 .recipe-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: inline-flex;
+    justify-content: space-between;
     width: 100%;
     gap: 20px;
 }
 
 .ingredients,
 .instructions {
-    width: 90%;
-    height: 100%;
+    width: 50%;
     background-color: #FFF;
-    padding: 20px 40px 40px 40px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -235,20 +217,14 @@ main img {
 
 .ingredients ol,
 .instructions ul {
-    margin-left: 10px;
     padding: 0;
-    list-style-type: circle;
+    list-style-type: none;
 }
 
 .ingredients li,
-.instructions p {
-    font-size: 19px;
+.instructions li {
+    font-size: 16px;
     margin-bottom: 10px;
-    word-spacing: 3px;
-}
-
-.instructions p {
-    line-height: 30px;
 }
 
 footer {
