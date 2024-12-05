@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Data format error: No "recipes" array in JSON');
       }
     })
-    // .catch(error => console.error('There has been a problem with your fetch operation:', error));
+    .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
-
+//Yag ene setupSuggestedFood gedeg function deer querySelector ashiglaad 
+//DOM-oos duudahaar muu bandi chin uuduus null utga butsaagaad bna
 async function setupSuggestedFood(id, mealtype) {
-  const sugFoods = document.querySelector("#suggested-foods");
+  const sugFoods = document.querySelector(".suggested-foods");
   sugFoods.innerHTML = await '';
   const filteredData = recipesData.filter(recipe =>
     recipe.mealType.includes(mealtype) && recipe.id !== id
