@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateImage(filter);
         updateIngredient(filter);
-        setupSuggestedFood(filter, recipe.mealType);
+        setTimeout(() =>
+          setupSuggestedFood(filter, recipe.mealType)
+          , 0);
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
@@ -20,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 //Yag ene setupSuggestedFood gedeg function deer querySelector ashiglaad 
 //DOM-oos duudahaar muu bandi chin uuduus null utga butsaagaad bna
-async function setupSuggestedFood(id, mealtype) {
-  const sugFoods = document.querySelector(".suggested-foods");
-  sugFoods.innerHTML = await '';
+function setupSuggestedFood(id, mealtype) {
+  const sugFoods = document.querySelector('.suggested-foods');
+  sugFoods.innerHTML = '';
   const filteredData = recipesData.filter(recipe =>
     recipe.mealType.includes(mealtype) && recipe.id !== id
   );
