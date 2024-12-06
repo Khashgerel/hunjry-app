@@ -20,7 +20,15 @@ body{
     --main-ui-color: #C2C9C6;
     --main-footer-color: #eaeaea;
 }
+button {
+    border: transparent;
+    width: 50px;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: var(--main-header-bg-color);
 
+}
 header {
     background-color: var(--main-header-bg-color);
     display: flex;

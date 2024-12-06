@@ -59,6 +59,8 @@ document.querySelectorAll('.meal-planner td[data-label]').forEach(cell => {
     cell.addEventListener('dragover', (event) => {
         event.preventDefault(); 
     });
+    const clearBtn = document.createElement('button');
+    clearBtn.textContent = 'Clear';
     cell.addEventListener('drop', (event) => {
         event.preventDefault();
         const recipeData = event.dataTransfer.getData('text/plain');
@@ -67,5 +69,9 @@ document.querySelectorAll('.meal-planner td[data-label]').forEach(cell => {
           <img src="${recipe.image}" alt="${recipe.name}" style="width:150px; height:150px;">
           <p>${recipe.name}</p>
         `;
+        cell.appendChild(clearBtn);
+        clearBtn.addEventListener('click', () => {
+            cell.innerHTML = '';
+        });
     });
 });
