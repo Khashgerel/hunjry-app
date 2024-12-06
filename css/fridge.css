@@ -75,6 +75,7 @@ main {
     background-color: #C2C9C6; 
     padding: 20px;
     border-radius: 10px;
+    overflow-y: scroll;
 }
 
 #orts-search {
@@ -93,8 +94,25 @@ main {
 .orts-list li {
     padding: 10px 0;
     border-bottom: 1px solid #6C837B;
+    font-size: 19px;
 }
-
+.ingredient.active{
+    background-color: greenyellow;
+}
+.food-card{
+    width: 250px;
+    height: 280px;
+    border-radius: 5px;
+    margin: 20px 15px;
+}
+.food-card img{
+    width: 250px;
+    border-radius: 5px;
+}
+.food-card h3{
+    text-decoration: none;
+    color: #000;
+}
 .categories {
     width: 70%;
     background-color: #C2C9C6; 
@@ -107,8 +125,11 @@ main {
 
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
+    gap: 25px;
     list-style-type: none;
+    flex-wrap: wrap;
+    overflow-y: scroll;
 }
 
 .column {
