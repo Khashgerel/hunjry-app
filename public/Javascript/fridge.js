@@ -1,6 +1,6 @@
 let recipesData = [];
 let ingredientsData = [];
-let activeIngredients = []; 
+let activeIngredients = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/recipes')
@@ -32,13 +32,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 setupIngredients();
                 searchIngredients();
                 selectIngredient();
+                setupDropdown();
             } else {
                 console.error('Data format error: No valid data in JSON');
             }
         })
         .catch(error => console.error('Error fetching ingredients:', error));
 });
+function setupDropdown() {
+    const searchBar = document.querySelector('.search-bar');
+    const dropdownContainer = document.querySelector('.dropdown-container');
+    const searchbar = document.querySelector('#search-bar');
+    dropdownContainer.innerHTML = '';
+    dropdownContainer.style.display = 'none';
 
+    searchbar.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+
+        dropdownContainer.innerHTML = '';
+
+        if (query) {
+            const filteredRecipes = recipesData.filter(recipe =>
+                recipe.name.toLowerCase().includes(query)
+            );
+
+            if (filteredRecipes.length > 0) {
+                filteredRecipes.forEach(recipe => {
+                    const foodItem = document.createElement('section');
+                    foodItem.className = 'food-name';
+                    foodItem.innerHTML = `
+              <img src="${recipe.image}" alt="${recipe.name}">
+              <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
+            `;
+                    dropdownContainer.appendChild(foodItem);
+                });
+                dropdownContainer.style.display = 'block';
+            } else {
+                dropdownContainer.style.display = 'none';
+            }
+        } else {
+            dropdownContainer.style.display = 'none';
+        }
+        searchBar.appendChild(dropdownContainer);
+    });
+}
 function setupIngredients() {
     const orts = document.querySelector('.orts-list');
     orts.innerHTML = '';
@@ -49,7 +86,7 @@ function setupIngredients() {
         listItem.textContent = ingredient;
         orts.appendChild(listItem);
     });
-    
+
 }
 
 function searchIngredients() {
