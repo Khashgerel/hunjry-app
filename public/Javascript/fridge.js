@@ -3,7 +3,7 @@ let ingredientsData = [];
 let activeIngredients = []; 
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/json/recipe.json')
+    fetch('/api/recipes')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching recipes:', error));
 
-    fetch('/json/ingredients.json')
+    fetch('/api/ingredients')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
