@@ -8,7 +8,10 @@
             ],
             "address": "UB",
             "phoneNumber": 99854132,
-            "email": "kashatheeater@gmail.com"
+            "email": "kashatheeater@gmail.com",
+            "plannedFoods": [
+                
+            ]      
         },
         {
             "userId": 2,
