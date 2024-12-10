@@ -1,5 +1,3 @@
-const { response } = require("express")
-
 document.addEventListener("DOMContentLoaded", () => {
     fetch('/json/user.json')
         .then(response => response.json())

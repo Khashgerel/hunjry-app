@@ -1,44 +1,48 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
 
-app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/save-recipe', (req, res) => {
-    const { cellLabel, recipe } = req.body;
-    const filePath = path.join(__dirname, 'user.json');
+const recipesData = JSON.parse(fs.readFileSync('./json/recipes.json'));
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading user.json:', err);
-            return res.status(500).send('Server error');
-        }
+app.get('/api/recipes', (req, res) => {
+  const { page = 1, itemsPerPage = 4, query = '', mealType = 'all' } = req.query;
 
-        let userData = {};
-        try {
-            userData = JSON.parse(data);
-        } catch (parseErr) {
-            console.error('Error parsing user.json:', parseErr);
-        }
+  let filteredData = recipesData.recipes;
 
-        if (!userData.mealPlan) userData.mealPlan = {};
-        userData.mealPlan[cellLabel] = recipe;
+  if (mealType !== 'all') {
+    filteredData = filteredData.filter(recipe =>
+      recipe.mealType.some(type => type.toLowerCase() === mealType.toLowerCase())
+    );
+  }
 
-        fs.writeFile(filePath, JSON.stringify(userData, null, 2), (writeErr) => {
-            if (writeErr) {
-                console.error('Error writing to user.json:', writeErr);
-                return res.status(500).send('Server error');
-            }
+  if (query) {
+    filteredData = filteredData.filter(recipe =>
+      recipe.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }
 
-            res.send({ message: 'Recipe saved successfully' });
-        });
-    });
+  const total = filteredData.length;
+  const start = (page - 1) * itemsPerPage;
+  const end = start + parseInt(itemsPerPage, 10);
+  const paginatedData = filteredData.slice(start, end);
+
+  res.json({
+    recipes: paginatedData,
+    total,
+    totalPages: Math.ceil(total / itemsPerPage),
+    currentPage: parseInt(page, 10),
+  });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public'));
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
