@@ -8,15 +8,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const urlParams = new URLSearchParams(window.location.search);
         const filter = parseInt(urlParams.get('id'));
+        const recipe = recipesData.filter(recipe => recipe.id === filter)
 
         updateImage(filter);
         updateIngredient(filter);
+        //setupSuggestedFood(filter, recipe.mealType);
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
     })
     .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
+
+function setupSuggestedFood(id, mealtype) {
+  const sugFoods = document.querySelector('.suggested-foods');
+  sugFoods.innerHTML = ''; 
+  const filteredData = recipesData.filter(recipe =>
+    recipe.mealType.includes(mealtype) && recipe.id !== id
+  );
+
+  const suggestions = filteredData.slice(0, 2);
+
+  if (suggestions.length === 0) {
+    sugFoods.innerHTML = `<p>No suggestions available for this meal type.</p>`;
+    return;
+  }
+
+  suggestions.forEach(recipe => {
+    const sugFood = document.createElement('section');
+    sugFood.className = 'suggested-food';
+    sugFood.innerHTML = `
+      <img src="${recipe.image}" alt="${recipe.name}">
+      <h3>${recipe.name}</h3>
+    `;
+    sugFoods.appendChild(sugFood);
+  });
+}
 
 function updateImage(filter) {
   const recipeImage = document.querySelector('.recipe-image');
