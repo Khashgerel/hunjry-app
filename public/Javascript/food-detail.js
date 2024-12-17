@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateImage(filter);
         updateIngredient(filter);
-        //setupSuggestedFood(filter, recipe.mealType);
+        setupSuggestedFood(filter);
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
@@ -20,16 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
 
-function setupSuggestedFood(id, mealtype) {
+function setupSuggestedFood(id) {
   const sugFoods = document.querySelector('.suggested-foods');
   sugFoods.innerHTML = ''; 
-  const filteredData = recipesData.filter(recipe =>
-    recipe.mealType.includes(mealtype) && recipe.id !== id
-  );
+  const recipe = recipesData.find(recipe => recipe.id === id);
+  const filteredData = recipesData.filter(recip =>
+    recip.mealType.some(type => type === recipe.mealType)
+  )
 
   const suggestions = filteredData.slice(0, 2);
 
-  if (suggestions.length === 0) {
+  if (filteredData.length === 0) {
     sugFoods.innerHTML = `<p>No suggestions available for this meal type.</p>`;
     return;
   }
@@ -61,13 +62,13 @@ function updateImage(filter) {
           <img src="/iconpic/comment.png" alt="comment">
         </section>
         <nav class="rating-container">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
-          <img src="/iconpic/pizza.png" alt="unelgee">
+          ${recipe.rating ? '<img src="/iconpic/pizza.png" alt="unelgee">'.repeat(recipe.rating) : 'N/A'}
         </nav>
       </article>
+      <section id="suggested-foods" class="suggested-foods">
+                <section class="suggested-food"></section>
+                <section class="suggested-food"></section>
+      </section>
     `;
   } else {
     recipeImage.innerHTML = `<p>Recipe not found.</p>`;

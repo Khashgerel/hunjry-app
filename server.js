@@ -9,9 +9,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const recipesData = JSON.parse(fs.readFileSync('./json/recipes.json'));
 const ingredientsData = JSON.parse(fs.readFileSync('./json/ingredients.json'));
+const commentsData = JSON.parse(fs.readFileSync('./json/comments.json'));
 
 app.get('/api/recipes', (req, res) => {
   res.json(recipesData);
+});
+
+app.get('/api/comments', (req,res) => {
+  res.json(commentsData);
 });
 
 app.get('/api/ingredients', (req, res) => {

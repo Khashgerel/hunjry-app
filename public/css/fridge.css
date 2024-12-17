@@ -95,6 +95,7 @@ main {
     padding: 10px 0;
     border-bottom: 1px solid #6C837B;
     font-size: 19px;
+    cursor: pointer;
 }
 .ingredient.active{
     background-color: greenyellow;
