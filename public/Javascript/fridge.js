@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data && data.recipes) {
                 recipesData = data.recipes;
+                filterFood();
             } else {
                 console.error('Data format error: No "recipes" array in JSON');
             }

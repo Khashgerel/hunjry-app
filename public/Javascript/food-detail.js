@@ -1,5 +1,5 @@
 let recipesData = [];
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   fetch('/api/recipes')
     .then(response => response.json())
     .then(data => {
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateImage(filter);
         updateIngredient(filter);
         setupSuggestedFood(filter);
+        setTimeout(() => setupLikeButton(filter), 0);
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
@@ -58,7 +59,7 @@ function updateImage(filter) {
       <h3>${recipe.name}</h3>
       <article class="icon">
         <section class="icons-container">
-          <img src="/iconpic/heart.png" alt="like">
+          <img src="/iconpic/heart.png" alt="like" class="heart-button">
           <img src="/iconpic/comment.png" alt="comment">
         </section>
         <nav class="rating-container">
@@ -66,8 +67,8 @@ function updateImage(filter) {
         </nav>
       </article>
       <section id="suggested-foods" class="suggested-foods">
-                <section class="suggested-food"></section>
-                <section class="suggested-food"></section>
+        <section class="suggested-food"></section>
+        <section class="suggested-food"></section>
       </section>
     `;
   } else {
@@ -101,4 +102,52 @@ function updateIngredient(filter) {
   } else {
     recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
   }
+}
+
+async function setupLikeButton(recipeId) {
+    const likeButton = document.querySelector('.heart-button');
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    if (!user) {
+        likeButton.addEventListener('click', () => {
+            alert('Та эхлээд нэвтрэ�� шаардлагатай!');
+            window.location.href = '/htmls/login.html';
+        });
+        return;
+    }
+
+    // Check if recipe is already liked
+    const response = await fetch('/api/users');
+    const userData = await response.json();
+    const currentUser = userData.users.find(u => u.userId === user.userId);
+    
+    if (currentUser.likedFoods && currentUser.likedFoods.includes(recipeId)) {
+        likeButton.classList.add('active');
+    }
+
+    likeButton.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/api/like-food', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.userId,
+                    recipeId: recipeId
+                })
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                likeButton.classList.toggle('active');
+            } else {
+                alert('Алдаа гарлаа: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Алдаа гарлаа');
+        }
+    });
 }
