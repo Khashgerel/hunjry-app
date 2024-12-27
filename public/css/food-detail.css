@@ -1,0 +1,71 @@
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.icons-container {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.heart-button, .comment-button {
+    background: none;
+    border: 2px solid #6C837B;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.heart-button:hover, .comment-button:hover {
+    transform: scale(1.1);
+    background-color: #6C837B;
+}
+
+.heart-button:hover img, .comment-button:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.heart-button img, .comment-button img {
+    width: 25px;
+    height: 25px;
+    transition: filter 0.3s ease;
+}
+
+.heart-button.active {
+    background-color: #ff4d6d;
+    border-color: #ff4d6d;
+}
+
+.heart-button.active img {
+    filter: brightness(0) invert(1);
+}
+
+/* Add ripple effect on click */
+.heart-button:active, .comment-button:active {
+    transform: scale(0.95);
+}
+
+/* Add focus state for accessibility */
+.heart-button:focus, .comment-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 131, 123, 0.3);
+} 

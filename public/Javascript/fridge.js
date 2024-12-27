@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setupIngredients();
                 searchIngredients();
                 selectIngredient();
-                setupDropdown();
+                //setupDropdown();
             } else {
                 console.error('Data format error: No valid data in JSON');
             }

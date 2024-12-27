@@ -20,7 +20,10 @@
       "password": "eeeeeeee",
       "likedFoods": [
         4,
-        5
+        5,
+        1,
+        2,
+        6
       ],
       "address": "UB",
       "phoneNumber": 99854132,

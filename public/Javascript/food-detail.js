@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateIngredient(filter);
         setupSuggestedFood(filter);
         setTimeout(() => setupLikeButton(filter), 0);
+        setupDropdown();
       } else {
         console.error('Data format error: No "recipes" array in JSON');
       }
@@ -59,8 +60,12 @@ function updateImage(filter) {
       <h3>${recipe.name}</h3>
       <article class="icon">
         <section class="icons-container">
-          <img src="/iconpic/heart.png" alt="like" class="heart-button">
-          <img src="/iconpic/comment.png" alt="comment">
+          <button class="heart-button">
+            <img src="/iconpic/heart.png" alt="like">
+          </button>
+          <button class="comment-button">
+            <img src="/iconpic/comment.png" alt="comment">
+          </button>
         </section>
         <nav class="rating-container">
           ${recipe.rating ? '<img src="/iconpic/pizza.png" alt="unelgee">'.repeat(recipe.rating) : 'N/A'}
@@ -74,6 +79,45 @@ function updateImage(filter) {
   } else {
     recipeImage.innerHTML = `<p>Recipe not found.</p>`;
   }
+}
+
+function setupDropdown() {
+  const searchBar = document.querySelector('.search-bar');
+  const dropdownContainer = document.querySelector('.dropdown-container');
+  const searchbar = document.querySelector('#search-bar');
+  
+  if (!dropdownContainer || !searchbar) return;
+  
+  dropdownContainer.innerHTML = '';
+  dropdownContainer.style.display = 'none';
+  
+  searchbar.addEventListener('input', (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    dropdownContainer.innerHTML = '';
+
+    if (query) {
+      const filteredRecipes = recipesData.filter(recipe =>
+        recipe.name.toLowerCase().includes(query)
+      );
+
+      if (filteredRecipes.length > 0) {
+        filteredRecipes.forEach(recipe => {
+          const foodItem = document.createElement('section');
+          foodItem.className = 'food-name';
+          foodItem.innerHTML = `
+            <img src="${recipe.image}" alt="${recipe.name}">
+            <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
+          `;
+          dropdownContainer.appendChild(foodItem);
+        });
+        dropdownContainer.style.display = 'block'; 
+      } else {
+        dropdownContainer.style.display = 'none'; 
+      }
+    } else {
+      dropdownContainer.style.display = 'none'; 
+    }
+  });
 }
 
 function updateIngredient(filter) {
@@ -110,13 +154,12 @@ async function setupLikeButton(recipeId) {
     
     if (!user) {
         likeButton.addEventListener('click', () => {
-            alert('Та эхлээд нэвтрэ�� шаардлагатай!');
+            alert('Та эхлээд нэвтрэх шаардлагатай!');
             window.location.href = '/htmls/login.html';
         });
         return;
     }
 
-    // Check if recipe is already liked
     const response = await fetch('/api/users');
     const userData = await response.json();
     const currentUser = userData.users.find(u => u.userId === user.userId);
