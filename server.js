@@ -1,33 +1,100 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const swaggerUi = require('swagger-ui-express');
+const apiDocs = require('./api-docs.json');
 
 const app = express();
 let PORT = 3000;
 
+// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-const recipesData = JSON.parse(fs.readFileSync('./json/recipes.json'));
-const ingredientsData = JSON.parse(fs.readFileSync('./json/ingredients.json'));
-const commentsData = JSON.parse(fs.readFileSync('./json/comments.json'));
-const userData = JSON.parse(fs.readFileSync('./json/user.json'));
+// Swagger documentation route - Move this BEFORE other routes
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDocs));
+
+// Read recipes data
+let recipesData;
+try {
+    recipesData = JSON.parse(fs.readFileSync(path.join(__dirname, 'json', 'recipes.json'), 'utf8'));
+} catch (error) {
+    console.error('Error reading recipes.json:', error);
+    recipesData = { recipes: [] };
+}
+
+// Read ingredients data
+let ingredientsData;
+try {
+    ingredientsData = JSON.parse(fs.readFileSync('./json/ingredients.json'));
+} catch (error) {
+    console.error('Error reading ingredients.json:', error);
+    ingredientsData = { ingredients: [] };
+}
+
+// Read user data
+let userData;
+try {
+    userData = JSON.parse(fs.readFileSync('./json/user.json'));
+} catch (error) {
+    console.error('Error reading user.json:', error);
+    userData = { users: [] };
+}
 
 app.get('/api/recipes', (req, res) => {
-  res.json(recipesData);
-});
-
-app.get('/api/comments', (req,res) => {
-  res.json(commentsData);
+    try {
+        const updatedData = JSON.parse(fs.readFileSync(path.join(__dirname, 'json', 'recipes.json'), 'utf8'));
+        res.json(updatedData);
+    } catch (error) {
+        console.error('Error serving recipes:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 app.get('/api/ingredients', (req, res) => {
-  res.json(ingredientsData);
+    res.json(ingredientsData);
 });
 
 app.get('/api/users', (req, res) => {
-    // Send the entire userData object
     res.json(userData);
+});
+
+app.post('/api/comments', (req, res) => {
+    const { recipeId, userId, body } = req.body;
+    
+    try {
+        // Read the current recipes
+        const recipesPath = path.join(__dirname, 'json', 'recipes.json');
+        const recipesData = JSON.parse(fs.readFileSync(recipesPath, 'utf8'));
+        
+        // Find the recipe
+        const recipe = recipesData.recipes.find(r => r.id === recipeId);
+        if (!recipe) {
+            return res.status(404).json({ success: false, message: 'Жор олдсонгүй' });
+        }
+        
+        // Initialize comments array if it doesn't exist
+        if (!recipe.comments) {
+            recipe.comments = [];
+        }
+        
+        // Add new comment
+        const newComment = {
+            id: recipe.comments.length > 0 ? Math.max(...recipe.comments.map(c => c.id)) + 1 : 1,
+            body: body,
+            userId: userId
+        };
+        
+        recipe.comments.push(newComment);
+        
+        // Save updated recipes back to file
+        fs.writeFileSync(recipesPath, JSON.stringify(recipesData, null, 2));
+        
+        res.json({ success: true, comment: newComment });
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        res.status(500).json({ success: false, message: 'Сэтгэгдэл нэмэх үед алдаа гарлаа' });
+    }
 });
 
 app.get('/', (req, res) => {
@@ -96,22 +163,21 @@ app.get('/api/user/:userId/liked-recipes', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    // This will handle any undefined routes
     res.redirect('/htmls/login.html');
 });
 
 const server = app.listen(PORT)
-  .on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      console.log(`Port ${PORT} is busy, trying ${PORT + 1}`);
-      PORT++;
-      server.close();
-      app.listen(PORT, () => {
+    .on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.log(`Port ${PORT} is busy, trying ${PORT + 1}`);
+            PORT++;
+            server.close();
+            app.listen(PORT, () => {
+                console.log(`Server is running on http://localhost:${PORT}`);
+            });
+        }
+    })
+    .on('listening', () => {
         console.log(`Server is running on http://localhost:${PORT}`);
-      });
-    }
-  })
-  .on('listening', () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
+    });
 

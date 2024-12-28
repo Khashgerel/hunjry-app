@@ -6,7 +6,8 @@
       "password": "aaaaaaaa",
       "likedFoods": [
         2,
-        3,
+        8,
+        27,
         1
       ],
       "address": "UB",
@@ -34,9 +35,10 @@
       "username": "Aiym",
       "password": "iiiiiiii",
       "likedFoods": [
-        1,
         3,
-        5
+        5,
+        20,
+        8
       ],
       "address": "UB",
       "phoneNumber": 99854132,

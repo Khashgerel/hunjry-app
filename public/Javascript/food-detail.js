@@ -1,51 +1,84 @@
 let recipesData = [];
 document.addEventListener('DOMContentLoaded', async () => {
-  fetch('/api/recipes')
-    .then(response => response.json())
-    .then(data => {
-      if (data && data.recipes) {
-        recipesData = data.recipes;
+    try {
+        const response = await fetch('/api/recipes');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        if (data && data.recipes) {
+            recipesData = data.recipes;
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const filter = parseInt(urlParams.get('id'));
-        const recipe = recipesData.filter(recipe => recipe.id === filter)
+            const urlParams = new URLSearchParams(window.location.search);
+            const filter = parseInt(urlParams.get('id'));
+            
+            if (!filter || isNaN(filter)) {
+                console.error('Invalid or missing recipe ID');
+                return;
+            }
 
-        updateImage(filter);
-        updateIngredient(filter);
-        setupSuggestedFood(filter);
-        setTimeout(() => setupLikeButton(filter), 0);
-        setupDropdown();
-      } else {
-        console.error('Data format error: No "recipes" array in JSON');
-      }
-    })
-    .catch(error => console.error('There has been a problem with your fetch operation:', error));
+            updateImage(filter);
+            updateIngredient(filter);
+            setupSuggestedFood(filter);
+            setTimeout(() => setupLikeButton(filter), 0);
+            setupDropdown();
+            setupCommentForm(filter);
+            displayComments(filter);
+        } else {
+            console.error('Data format error: No "recipes" array in JSON');
+        }
+    } catch (error) {
+        console.error('Error loading recipes:', error);
+        // Show error message to user
+        const main = document.querySelector('main');
+        if (main) {
+            main.innerHTML = `
+                <div class="error-message">
+                    <p>Жорын мэдээлэл ачаалахад алдаа гарлаа. Та хуудсаа дахин ачаална уу.</p>
+                </div>
+            `;
+        }
+    }
 });
 
 function setupSuggestedFood(id) {
-  const sugFoods = document.querySelector('.suggested-foods');
-  sugFoods.innerHTML = ''; 
-  const recipe = recipesData.find(recipe => recipe.id === id);
-  const filteredData = recipesData.filter(recip =>
-    recip.mealType.some(type => type === recipe.mealType)
-  )
+    const sugFoods = document.querySelector('.suggested-foods');
+    sugFoods.innerHTML = ''; 
+    
+    const currentRecipe = recipesData.find(recipe => recipe.id === id);
+    if (!currentRecipe) return;
 
-  const suggestions = filteredData.slice(0, 2);
+    // Filter recipes that share at least one meal type with current recipe
+    // and exclude the current recipe
+    const filteredData = recipesData.filter(recipe => 
+        recipe.id !== id && // Exclude current recipe
+        recipe.mealType.some(type => 
+            currentRecipe.mealType.includes(type)
+        )
+    );
 
-  if (filteredData.length === 0) {
-    sugFoods.innerHTML = `<p>No suggestions available for this meal type.</p>`;
-    return;
-  }
+    // Get random 2 suggestions
+    const suggestions = filteredData
+        .sort(() => 0.5 - Math.random()) // Shuffle array
+        .slice(0, 2);
 
-  suggestions.forEach(recipe => {
-    const sugFood = document.createElement('section');
-    sugFood.className = 'suggested-food';
-    sugFood.innerHTML = `
-      <img src="${recipe.image}" alt="${recipe.name}">
-      <h3>${recipe.name}</h3>
-    `;
-    sugFoods.appendChild(sugFood);
-  });
+    if (suggestions.length === 0) {
+        sugFoods.innerHTML = `<p>Санал болгох хоол олдсонгүй.</p>`;
+        return;
+    }
+
+    suggestions.forEach(recipe => {
+        const sugFood = document.createElement('section');
+        sugFood.className = 'suggested-food';
+        sugFood.innerHTML = `
+            <a href="/htmls/hool_detail.html?id=${recipe.id}">
+                <img src="${recipe.image}" alt="${recipe.name}">
+                <h3>${recipe.name}</h3>
+            </a>
+        `;
+        sugFoods.appendChild(sugFood);
+    });
 }
 
 function updateImage(filter) {
@@ -193,4 +226,111 @@ async function setupLikeButton(recipeId) {
             alert('Алдаа гарлаа');
         }
     });
+}
+
+async function setupCommentForm(recipeId) {
+    const commentForm = document.querySelector('.comment-input');
+    if (!commentForm) return;
+
+    const commentInput = commentForm.querySelector('input');
+    if (!commentInput) return;
+
+    const commentsSection = document.querySelector('.comments');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Та эхлээд нэвтрэх шаардлагатай!');
+            window.location.href = '/htmls/login.html';
+        });
+        return;
+    }
+
+    commentForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const commentText = commentInput.value.trim();
+        if (!commentText) {
+            alert('Сэтгэгдэл хоосон байж болохгүй!');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/comments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    recipeId: recipeId,
+                    userId: user.userId,
+                    body: commentText
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            if (data.success) {
+                // Add new comment to recipesData
+                const recipe = recipesData.find(r => r.id === recipeId);
+                if (recipe) {
+                    if (!recipe.comments) {
+                        recipe.comments = [];
+                    }
+                    recipe.comments.push(data.comment);
+                }
+
+                // Add new comment to UI immediately
+                const newComment = document.createElement('section');
+                newComment.className = 'comment';
+                newComment.innerHTML = `
+                    <img src="/iconpic/profile.png" alt="user">
+                    <p>${commentText}</p>
+                `;
+                
+                // Insert the new comment after the form
+                const firstComment = commentsSection.querySelector('.comment');
+                if (firstComment) {
+                    commentsSection.insertBefore(newComment, firstComment);
+                } else {
+                    commentsSection.appendChild(newComment);
+                }
+                
+                // Clear input
+                commentInput.value = '';
+            } else {
+                alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Сэтгэгдэл нэмэх үед алдаа гарлаа');
+        }
+    });
+}
+
+function displayComments(recipeId) {
+    const commentsSection = document.querySelector('.comments');
+    const commentForm = document.querySelector('.comment-input');
+    
+    // Clear existing comments except the form
+    const existingComments = commentsSection.querySelectorAll('.comment');
+    existingComments.forEach(comment => comment.remove());
+    
+    const recipe = recipesData.find(r => r.id === recipeId);
+    if (recipe && recipe.comments) {
+        recipe.comments.forEach(comment => {
+            const commentElement = document.createElement('section');
+            commentElement.className = 'comment';
+            commentElement.innerHTML = `
+                <img src="/iconpic/profile.png" alt="user">
+                <p>${comment.body}</p>
+            `;
+            commentsSection.appendChild(commentElement);
+        });
+    }
 }

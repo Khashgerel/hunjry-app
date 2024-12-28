@@ -1,0 +1,279 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Hungry App API",
+    "version": "1.0.0",
+    "description": "API documentation for Hungry App"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/recipes": {
+      "get": {
+        "summary": "Get all recipes",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "summary": "Add a new comment to a recipe",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recipe not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/like-food": {
+      "post": {
+        "summary": "Toggle like status for a recipe",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LikeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Like status toggled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LikeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}/liked-recipes": {
+      "get": {
+        "summary": "Get user's liked recipes",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of liked recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ingredients": {
+      "get": {
+        "summary": "Get all ingredients",
+        "responses": {
+          "200": {
+            "description": "List of ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngredientsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Recipe": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "ingredients": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "instructions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "prepTimeMinutes": { "type": "integer" },
+          "cookTimeMinutes": { "type": "integer" },
+          "servings": { "type": "integer" },
+          "difficulty": { "type": "string" },
+          "cuisine": { "type": "string" },
+          "caloriesPerServing": { "type": "integer" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "userId": { "type": "integer" },
+          "image": { "type": "string" },
+          "rating": { "type": "number" },
+          "reviewCount": { "type": "integer" },
+          "mealType": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "comments": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Comment" }
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "body": { "type": "string" },
+          "userId": { "type": "integer" }
+        }
+      },
+      "CommentRequest": {
+        "type": "object",
+        "required": ["recipeId", "userId", "body"],
+        "properties": {
+          "recipeId": { "type": "integer" },
+          "userId": { "type": "integer" },
+          "body": { "type": "string" }
+        }
+      },
+      "CommentResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "comment": { "$ref": "#/components/schemas/Comment" }
+        }
+      },
+      "LikeRequest": {
+        "type": "object",
+        "required": ["userId", "recipeId"],
+        "properties": {
+          "userId": { "type": "integer" },
+          "recipeId": { "type": "integer" }
+        }
+      },
+      "LikeResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "message": { "type": "string" }
+        }
+      },
+      "RecipesResponse": {
+        "type": "object",
+        "properties": {
+          "recipes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Recipe" }
+          },
+          "total": { "type": "integer" },
+          "skip": { "type": "integer" },
+          "limit": { "type": "integer" }
+        }
+      },
+      "UsersResponse": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": { "type": "integer" },
+                "username": { "type": "string" },
+                "likedFoods": {
+                  "type": "array",
+                  "items": { "type": "integer" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+} 
