@@ -43,11 +43,11 @@ try {
 
 app.get('/api/recipes', (req, res) => {
     try {
-        const updatedData = JSON.parse(fs.readFileSync(path.join(__dirname, 'json', 'recipes.json'), 'utf8'));
-        res.json(updatedData);
+        const recipesData = JSON.parse(fs.readFileSync('json/recipes.json', 'utf8'));
+        res.json(recipesData);
     } catch (error) {
-        console.error('Error serving recipes:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Error reading recipes:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
 
@@ -162,9 +162,61 @@ app.get('/api/user/:userId/liked-recipes', (req, res) => {
     }
 });
 
+app.get('/api/add-comment', (req, res) => {
+    try {
+        const { userId, recipeId, comment, date } = req.body;
+        
+        // Read current recipes data
+        const recipesData = JSON.parse(fs.readFileSync('json/recipes.json', 'utf8'));
+        const usersData = JSON.parse(fs.readFileSync('json/user.json', 'utf8'));
+        
+        // Find the user to get their name
+        const user = usersData.users.find(u => u.userId === userId);
+        
+        // Find the recipe to add the comment to
+        const recipe = recipesData.recipes.find(r => r.id === recipeId);
+        
+        if (!recipe) {
+            return res.status(404).json({ success: false, message: 'Recipe not found' });
+        }
+        
+        // Initialize comments array if it doesn't exist
+        if (!recipe.comments) {
+            recipe.comments = [];
+        }
+        
+        // Add the new comment
+        recipe.comments.push({
+            userId,
+            userName: user ? user.name : 'Anonymous',
+            comment,
+            date
+        });
+        
+        // Save the updated recipes data
+        fs.writeFileSync('json/recipes.json', JSON.stringify(recipesData, null, 2));
+        
+        res.json({ success: true });
+        
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
 app.get('*', (req, res) => {
     res.redirect('/htmls/login.html');
 });
+
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
 
 const server = app.listen(PORT)
     .on('error', (err) => {
@@ -180,4 +232,3 @@ const server = app.listen(PORT)
     .on('listening', () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     });
-

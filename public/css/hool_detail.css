@@ -18,7 +18,7 @@ body {
     background-color: var(--main-bg-color);
 }
 
-body{
+:root{
     --main-header-bg-color:#6C837B;
     --main-bg-color:#FBF8F1;
     --main-button-color: #6C837B;
@@ -431,7 +431,7 @@ footer ul li {
     }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     body {
         background-color: #333;
     }
@@ -448,7 +448,7 @@ footer ul li {
     h3 {
         color: white;
     }
-}
+} */
 
 .comment-input button {
     transition: background-color 2s 500ms;

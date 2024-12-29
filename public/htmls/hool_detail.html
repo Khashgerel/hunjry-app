@@ -9,7 +9,7 @@
     <!--body доторх хэсгээр оролдоогүй. Хэрвээ хуучнаар нь харахаар бол яг энэ доор байгаа script хэсгийг арилгаарай.
     Зөвхөн food хэсгээс "Жор харах" дарах үед Js ажиллана. Like, Comment ажиллахгүй. 
     URL дээр id гэсний ард нь 1-30 хооронд тоо оруулсан ч болно.-->
-    <script type="module" src="/Javascript/food-detail.js" defer></script>
+    <script src="/Javascript/food-detail.js" defer></script>
 </head>
 
 <body>
@@ -48,27 +48,21 @@
                     <img src="/iconpic/pizza.png" alt="unelgee">
                 </nav>
             </article>
+            <section class="suggested-foods">
+                <!-- This will be populated by JavaScript -->
+            </section>
         </section>
         <section class="recipe-content">
         </section>
         <section class="comments">
             <h3>Сэтгэгдэл</h3>
             <form class="comment-input">
-                <input type="text" placeholder="Сэтгэгдэл үлдээх">
+                <input type="text" placeholder="Сэтгэгдэл үлдээх" id="commentInput">
                 <button type="submit">Нийтлэх</button>
             </form>
-            <section class="comment">
-                <img src="/iconpic/profile.png" alt="user">
-                <p>Сайхан хоол байна. Лайк</p>
-            </section>
-            <section class="comment">
-                <img src="/iconpic/profile.png" alt="user">
-                <p>Маш амттай!</p>
-            </section>
-            <section class="comment">
-                <img src="/iconpic/profile.png" alt="user">
-                <p>Дараа дахин хийх хэрэгтэй.</p>
-            </section>
+            <div class="comments-container">
+                <!-- Comments will be populated here by JavaScript -->
+            </div>
         </section>
     </main>
     <footer>
