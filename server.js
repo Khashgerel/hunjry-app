@@ -3,18 +3,16 @@ const path = require('path');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const apiDocs = require('./api-docs.json');
+const db = require('./database.js');
 
 const app = express();
 let PORT = 3000;
 
-// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// Swagger documentation route - Move this BEFORE other routes
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDocs));
 
-// Read recipes data
 let recipesData;
 try {
     recipesData = JSON.parse(fs.readFileSync(path.join(__dirname, 'json', 'recipes.json'), 'utf8'));
@@ -23,7 +21,6 @@ try {
     recipesData = { recipes: [] };
 }
 
-// Read ingredients data
 let ingredientsData;
 try {
     ingredientsData = JSON.parse(fs.readFileSync('./json/ingredients.json'));
@@ -32,7 +29,6 @@ try {
     ingredientsData = { ingredients: [] };
 }
 
-// Read user data
 let userData;
 try {
     userData = JSON.parse(fs.readFileSync('./json/user.json'));
@@ -63,22 +59,18 @@ app.post('/api/comments', (req, res) => {
     const { recipeId, userId, body } = req.body;
     
     try {
-        // Read the current recipes
         const recipesPath = path.join(__dirname, 'json', 'recipes.json');
         const recipesData = JSON.parse(fs.readFileSync(recipesPath, 'utf8'));
         
-        // Find the recipe
         const recipe = recipesData.recipes.find(r => r.id === recipeId);
         if (!recipe) {
             return res.status(404).json({ success: false, message: 'Жор олдсонгүй' });
         }
         
-        // Initialize comments array if it doesn't exist
         if (!recipe.comments) {
             recipe.comments = [];
         }
         
-        // Add new comment
         const newComment = {
             id: recipe.comments.length > 0 ? Math.max(...recipe.comments.map(c => c.id)) + 1 : 1,
             body: body,
@@ -87,7 +79,6 @@ app.post('/api/comments', (req, res) => {
         
         recipe.comments.push(newComment);
         
-        // Save updated recipes back to file
         fs.writeFileSync(recipesPath, JSON.stringify(recipesData, null, 2));
         
         res.json({ success: true, comment: newComment });
@@ -109,25 +100,20 @@ app.get('/htmls/:file', (req, res) => {
 app.post('/api/like-food', (req, res) => {
     const { userId, recipeId } = req.body;
     
-    // Find user in userData
     const user = userData.users.find(u => u.userId === userId);
     
     if (user) {
-        // Initialize likedFoods array if it doesn't exist
         if (!user.likedFoods) {
             user.likedFoods = [];
         }
         
-        // Add recipe if not already liked
         if (!user.likedFoods.includes(recipeId)) {
             user.likedFoods.push(recipeId);
             
-            // Save updated data back to user.json
             fs.writeFileSync('./json/user.json', JSON.stringify(userData, null, 2));
             
             res.json({ success: true, message: 'Food added to favorites' });
         } else {
-            // Remove from liked foods if already liked
             user.likedFoods = user.likedFoods.filter(id => id !== recipeId);
             fs.writeFileSync('./json/user.json', JSON.stringify(userData, null, 2));
             
@@ -143,21 +129,18 @@ app.get('/api/user/:userId/liked-recipes', (req, res) => {
     const user = userData.users.find(u => u.userId === userId);
     
     if (user) {
-        // Initialize empty array if likedFoods doesn't exist
         if (!user.likedFoods) {
             user.likedFoods = [];
         }
         
-        // Get full recipe details for each liked food
         const likedRecipes = user.likedFoods
             .map(recipeId => 
                 recipesData.recipes.find(recipe => recipe.id === recipeId)
             )
-            .filter(recipe => recipe !== undefined); // Remove any undefined recipes
+            .filter(recipe => recipe !== undefined); 
         
         res.json(likedRecipes);
     } else {
-        // Send empty array if user not found
         res.json([]);
     }
 });
@@ -166,26 +149,21 @@ app.get('/api/add-comment', (req, res) => {
     try {
         const { userId, recipeId, comment, date } = req.body;
         
-        // Read current recipes data
         const recipesData = JSON.parse(fs.readFileSync('json/recipes.json', 'utf8'));
         const usersData = JSON.parse(fs.readFileSync('json/user.json', 'utf8'));
         
-        // Find the user to get their name
         const user = usersData.users.find(u => u.userId === userId);
         
-        // Find the recipe to add the comment to
         const recipe = recipesData.recipes.find(r => r.id === recipeId);
         
         if (!recipe) {
             return res.status(404).json({ success: false, message: 'Recipe not found' });
         }
         
-        // Initialize comments array if it doesn't exist
         if (!recipe.comments) {
             recipe.comments = [];
         }
         
-        // Add the new comment
         recipe.comments.push({
             userId,
             userName: user ? user.name : 'Anonymous',
@@ -193,7 +171,6 @@ app.get('/api/add-comment', (req, res) => {
             date
         });
         
-        // Save the updated recipes data
         fs.writeFileSync('json/recipes.json', JSON.stringify(recipesData, null, 2));
         
         res.json({ success: true });
@@ -217,6 +194,17 @@ app.use(express.static('public', {
     }
   }
 }));
+
+async function initializeDatabase() {
+    try {
+        await db.importDataFromJson();
+        console.log('Database initialized with JSON data');
+    } catch (error) {
+        console.error('Error initializing database:', error);
+    }
+}
+
+initializeDatabase();
 
 const server = app.listen(PORT)
     .on('error', (err) => {

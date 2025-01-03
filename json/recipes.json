@@ -54,6 +54,16 @@
           "id": 4,
           "body": "hair ymbe",
           "userId": 1
+        },
+        {
+          "id": 5,
+          "body": "ugui manaihan iluu taalj idsen",
+          "userId": 2
+        },
+        {
+          "id": 6,
+          "body": "Унтаагүй гүнжүүд байна уу?",
+          "userId": 2
         }
       ]
     },
@@ -927,6 +937,18 @@
       "reviewCount": 44,
       "mealType": [
         "Оройн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "sainuu ene comment boljinu",
+          "userId": 3
+        },
+        {
+          "id": 2,
+          "body": "ugui manaihan iluu taalj idsen",
+          "userId": 3
+        }
       ]
     },
     {
@@ -1278,6 +1300,18 @@
       "reviewCount": 84,
       "mealType": [
         "Өдрийн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "sainuu ene comment boljinu",
+          "userId": 1
+        },
+        {
+          "id": 2,
+          "body": "aan zza bolj bsan bna",
+          "userId": 1
+        }
       ]
     },
     {

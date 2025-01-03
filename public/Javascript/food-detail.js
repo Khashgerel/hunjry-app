@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } catch (error) {
         console.error('Error loading recipes:', error);
-        // Show error message to user
         const main = document.querySelector('main');
         if (main) {
             main.innerHTML = `
@@ -49,18 +48,15 @@ function setupSuggestedFood(id) {
     const currentRecipe = recipesData.find(recipe => recipe.id === id);
     if (!currentRecipe) return;
 
-    // Filter recipes that share at least one meal type with current recipe
-    // and exclude the current recipe
     const filteredData = recipesData.filter(recipe => 
-        recipe.id !== id && // Exclude current recipe
+        recipe.id !== id && 
         recipe.mealType.some(type => 
             currentRecipe.mealType.includes(type)
         )
     );
 
-    // Get random 2 suggestions
     const suggestions = filteredData
-        .sort(() => 0.5 - Math.random()) // Shuffle array
+        .sort(() => 0.5 - Math.random()) 
         .slice(0, 2);
 
     if (suggestions.length === 0) {
@@ -276,7 +272,6 @@ async function setupCommentForm(recipeId) {
             const data = await response.json();
             
             if (data.success) {
-                // Add new comment to recipesData
                 const recipe = recipesData.find(r => r.id === recipeId);
                 if (recipe) {
                     if (!recipe.comments) {
@@ -285,7 +280,6 @@ async function setupCommentForm(recipeId) {
                     recipe.comments.push(data.comment);
                 }
 
-                // Add new comment to UI immediately
                 const newComment = document.createElement('section');
                 newComment.className = 'comment';
                 newComment.innerHTML = `
@@ -293,7 +287,6 @@ async function setupCommentForm(recipeId) {
                     <p>${commentText}</p>
                 `;
                 
-                // Insert the new comment after the form
                 const firstComment = commentsSection.querySelector('.comment');
                 if (firstComment) {
                     commentsSection.insertBefore(newComment, firstComment);
@@ -301,7 +294,6 @@ async function setupCommentForm(recipeId) {
                     commentsSection.appendChild(newComment);
                 }
                 
-                // Clear input
                 commentInput.value = '';
             } else {
                 alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));

@@ -1,72 +1,64 @@
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
 
-// Database configuration
-const pool = mysql.createPool({
+const pool = new Pool({
     host: 'localhost',
-    user: 'root',  // Your MySQL username
-    password: 'your_password_here',  // Your MySQL password
+    user: 'hunjry-app',
+    password: '12345678',
     database: 'recipe_db',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+    port: 5432
 });
 
-// Database helper functions
 const db = {
-    // User related queries
     async getUser(userId) {
-        const [rows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [userId]);
+        const { rows } = await pool.query('SELECT * FROM users WHERE user_id = $1', [userId]);
         return rows[0];
     },
 
     async createUser(username, password, address, phoneNumber, email) {
-        const [result] = await pool.query(
-            'INSERT INTO users (username, password, address, phone_number, email) VALUES (?, ?, ?, ?, ?)',
+        const { rows } = await pool.query(
+            'INSERT INTO users (username, password, address, phone_number, email) VALUES ($1, $2, $3, $4, $5) RETURNING user_id',
             [username, password, address, phoneNumber, email]
         );
-        return result.insertId;
+        return rows[0].user_id;
     },
 
-    // Recipe related queries
     async getAllRecipes() {
-        const [rows] = await pool.query('SELECT * FROM recipes');
+        const { rows } = await pool.query('SELECT * FROM recipes');
         return rows;
     },
 
     async getRecipe(recipeId) {
-        const [recipe] = await pool.query('SELECT * FROM recipes WHERE recipe_id = ?', [recipeId]);
-        if (recipe[0]) {
-            const [ingredients] = await pool.query(
+        const { rows: [recipe] } = await pool.query('SELECT * FROM recipes WHERE recipe_id = $1', [recipeId]);
+        if (recipe) {
+            const { rows: ingredients } = await pool.query(
                 `SELECT i.name 
                 FROM ingredients i 
                 JOIN recipe_ingredients ri ON i.ingredient_id = ri.ingredient_id 
-                WHERE ri.recipe_id = ?`,
+                WHERE ri.recipe_id = $1`,
                 [recipeId]
             );
-            const [instructions] = await pool.query(
-                'SELECT instruction_text FROM instructions WHERE recipe_id = ? ORDER BY step_number',
+            const { rows: instructions } = await pool.query(
+                'SELECT instruction_text FROM instructions WHERE recipe_id = $1 ORDER BY step_number',
                 [recipeId]
             );
-            recipe[0].ingredients = ingredients.map(i => i.name);
-            recipe[0].instructions = instructions.map(i => i.instruction_text);
-            return recipe[0];
+            recipe.ingredients = ingredients.map(i => i.name);
+            recipe.instructions = instructions.map(i => i.instruction_text);
+            return recipe;
         }
         return null;
     },
 
-    // Ingredient related queries
     async getAllIngredients() {
-        const [rows] = await pool.query('SELECT name FROM ingredients');
+        const { rows } = await pool.query('SELECT name FROM ingredients');
         return rows.map(row => row.name);
     },
 
-    // User's liked recipes
     async getLikedRecipes(userId) {
-        const [rows] = await pool.query(
+        const { rows } = await pool.query(
             `SELECT r.* 
             FROM recipes r 
             JOIN liked_foods lf ON r.recipe_id = lf.recipe_id 
-            WHERE lf.user_id = ?`,
+            WHERE lf.user_id = $1`,
             [userId]
         );
         return rows;
@@ -75,7 +67,7 @@ const db = {
     async addLikedRecipe(userId, recipeId) {
         try {
             await pool.query(
-                'INSERT INTO liked_foods (user_id, recipe_id) VALUES (?, ?)',
+                'INSERT INTO liked_foods (user_id, recipe_id) VALUES ($1, $2)',
                 [userId, recipeId]
             );
             return true;
@@ -85,13 +77,12 @@ const db = {
         }
     },
 
-    // User's planned meals
     async getPlannedMeals(userId) {
-        const [rows] = await pool.query(
+        const { rows } = await pool.query(
             `SELECT r.*, pf.planned_date 
             FROM recipes r 
             JOIN planned_foods pf ON r.recipe_id = pf.recipe_id 
-            WHERE pf.user_id = ?
+            WHERE pf.user_id = $1
             ORDER BY pf.planned_date`,
             [userId]
         );
@@ -101,7 +92,7 @@ const db = {
     async addPlannedMeal(userId, recipeId, plannedDate) {
         try {
             await pool.query(
-                'INSERT INTO planned_foods (user_id, recipe_id, planned_date) VALUES (?, ?, ?)',
+                'INSERT INTO planned_foods (user_id, recipe_id, planned_date) VALUES ($1, $2, $3)',
                 [userId, recipeId, plannedDate]
             );
             return true;
@@ -111,33 +102,90 @@ const db = {
         }
     },
 
-    // Comments related queries
     async getComments(postId) {
-        const [rows] = await pool.query(
+        const { rows } = await pool.query(
             `SELECT c.*, u.username, u.email 
             FROM comments c 
             JOIN users u ON c.user_id = u.user_id 
-            WHERE c.post_id = ?`,
+            WHERE c.post_id = $1`,
             [postId]
         );
         return rows;
     },
 
     async addComment(userId, postId, body) {
-        const [result] = await pool.query(
-            'INSERT INTO comments (user_id, post_id, body) VALUES (?, ?, ?)',
+        const { rows } = await pool.query(
+            'INSERT INTO comments (user_id, post_id, body) VALUES ($1, $2, $3) RETURNING comment_id',
             [userId, postId, body]
         );
-        return result.insertId;
+        return rows[0].comment_id;
+    },
+
+    async importDataFromJson() {
+        try {
+            const recipesData = require('./json/recipes.json');
+            const ingredientsData = require('./json/ingredients.json');
+            const userData = require('./json/user.json');
+
+            for (const user of userData.users) {
+                await pool.query(
+                    'INSERT INTO users (user_id, username, password, address, phone_number, email) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (user_id) DO NOTHING',
+                    [user.userId, user.username, user.password, user.address, user.phoneNumber, user.email]
+                );
+            }
+
+            for (const recipe of recipesData.recipes) {
+                await pool.query(
+                    'INSERT INTO recipes (recipe_id, title, description, image_url, cooking_time, servings) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (recipe_id) DO NOTHING',
+                    [recipe.id, recipe.title, recipe.description, recipe.imageUrl, recipe.cookingTime, recipe.servings]
+                );
+
+                for (const ingredient of recipe.ingredients) {
+                    const { rows } = await pool.query(
+                        'INSERT INTO ingredients (name) VALUES ($1) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name RETURNING ingredient_id',
+                        [ingredient]
+                    );
+                    const ingredientId = rows[0].ingredient_id;
+
+                    await pool.query(
+                        'INSERT INTO recipe_ingredients (recipe_id, ingredient_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+                        [recipe.id, ingredientId]
+                    );
+                }
+
+                for (let i = 0; i < recipe.instructions.length; i++) {
+                    await pool.query(
+                        'INSERT INTO instructions (recipe_id, step_number, instruction_text) VALUES ($1, $2, $3) ON CONFLICT (recipe_id, step_number) DO NOTHING',
+                        [recipe.id, i + 1, recipe.instructions[i]]
+                    );
+                }
+            }
+
+            for (const user of userData.users) {
+                if (user.likedFoods) {
+                    for (const recipeId of user.likedFoods) {
+                        await pool.query(
+                            'INSERT INTO liked_foods (user_id, recipe_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+                            [user.userId, recipeId]
+                        );
+                    }
+                }
+            }
+
+            console.log('Data import completed successfully');
+            return true;
+        } catch (error) {
+            console.error('Error importing data:', error);
+            return false;
+        }
     }
 };
 
-// Test database connection
 async function testConnection() {
     try {
-        const connection = await pool.getConnection();
+        const client = await pool.connect();
         console.log('Database connected successfully');
-        connection.release();
+        client.release();
     } catch (error) {
         console.error('Error connecting to database:', error);
     }
