@@ -13,9 +13,9 @@ body {
     background-color: var(--main-bg-color);
 }
 
-body{
-    --main-header-bg-color:#6C837B;
-    --main-bg-color:#FBF8F1;
+body {
+    --main-header-bg-color: #6C837B;
+    --main-bg-color: #FBF8F1;
     --main-button-color: #6C837B;
     --main-ui-color: #C2C9C6;
     --main-footer-color: #eaeaea;
@@ -30,6 +30,7 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 1000;
 }
 
 .icons {
@@ -63,16 +64,16 @@ header {
 
 main {
     display: flex;
-    padding: 0px 20px;
+    flex-wrap: wrap;
+    padding: 20px;
     justify-content: space-between;
     margin-top: 100px;
     margin-bottom: 100px;
-    height: 100vh;
 }
 
 .orts {
     width: 25%;
-    background-color: #C2C9C6; 
+    background-color: #C2C9C6;
     padding: 20px;
     border-radius: 10px;
     overflow-y: scroll;
@@ -97,26 +98,32 @@ main {
     font-size: 19px;
     cursor: pointer;
 }
-.ingredient.active{
-    background-color: greenyellow;
+
+.ingredient.active {
+    background-color: rgb(196, 212, 172);
 }
-.food-card{
-    width: 250px;
-    height: 280px;
+
+.food-card {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
     border-radius: 5px;
     margin: 20px 15px;
 }
-.food-card img{
-    width: 250px;
+
+.food-card img {
+    width: 100%;
     border-radius: 5px;
 }
-.food-card h3{
+
+.food-card h3 {
     text-decoration: none;
     color: #000;
 }
+
 .categories {
     width: 70%;
-    background-color: #C2C9C6; 
+    background-color: #C2C9C6;
     padding: 20px;
     border-radius: 10px;
     display: flex;
@@ -143,11 +150,13 @@ main {
 .container li:first-child {
     border-left: none;
 }
+
 footer {
     background-color: var(--main-footer-color);
     background-image: linear-gradient(#ccc, var(--main-footer-color));
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     border-top: 1px solid #ccc;
 }
@@ -168,4 +177,77 @@ footer ul {
 
 footer ul li {
     margin-bottom: 5px;
+}
+
+
+@media (max-width: 1024px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .orts {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .categories {
+        width: 100%;
+    }
+
+    .food-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .search-bar {
+        width: 80%;
+        margin: 10px 0;
+    }
+
+    .icons img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .categories {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .icons img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .orts-list li {
+        font-size: 16px;
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer section {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
