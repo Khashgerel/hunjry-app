@@ -1,7 +1,7 @@
 {
-  "name": "Recipe Planner",
-  "short_name": "Recipes",
-  "description": "A meal planning and recipe management application",
+  "name": "Hunjry-Web",
+  "short_name": "Hunjry-Web",
+  "description": "Hunjry-Web",
   "start_url": "/htmls/login.html",
   "display": "standalone",
   "background_color": "#ffffff",

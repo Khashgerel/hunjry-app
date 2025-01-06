@@ -7,7 +7,7 @@ const urlsToCache = [
   '/Javascript/plan.js',
   '/Javascript/food-detail.js',
   '/Javascript/fridge.js',
-  // Add other important assets here
+  '/Javascript/register-sw.js'
 ];
 
 self.addEventListener('install', (event) => {

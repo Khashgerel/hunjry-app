@@ -179,6 +179,7 @@ article a {
 .user_favs {
     display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
 }
 
 .user_favs h2 {

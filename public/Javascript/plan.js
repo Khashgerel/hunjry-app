@@ -80,5 +80,9 @@ document.querySelectorAll('.meal-planner td[data-label]').forEach(cell => {
             <p>${recipe.name}</p>
         `;
         cell.appendChild(clearBtn);
+        const btnclear = document.querySelector('.clear-btn');
+        btnclear.addEventListener('click', () => {
+            cell.innerHTML = originalContent;
+        });
     });
 });

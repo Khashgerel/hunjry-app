@@ -57,6 +57,18 @@
       "address": "UB",
       "phoneNumber": 99854132,
       "email": "kashatheeater@gmail.com"
+    },
+    {
+      "userId": 5,
+      "username": "hongoroo",
+      "password": "hhhhhhhh",
+      "likedFoods": [
+        2,
+        4
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
     }
   ]
 }
