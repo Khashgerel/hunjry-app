@@ -1,6 +1,6 @@
 let recipesData = [];
 
-async function initializeSearch() {
+async function initializeSearch() {  //huudas achaalahad serverees recipe uudiig awna
     try {
         const response = await fetch('/api/recipes');
         const data = await response.json();
@@ -13,12 +13,12 @@ async function initializeSearch() {
     }
 }
 
-function setupDropdown() {
+function setupDropdown() { //search bar deer oruulj bga utgaar ni huudas achaalahad hooliig haruulah
     const searchBar = document.querySelector('.search-bar');
     const dropdownContainer = document.querySelector('.dropdown-container');
     const searchbar = document.querySelector('#search-bar');
     
-    if (!dropdownContainer || !searchbar) return;
+    if (!dropdownContainer || !searchbar) return; //tohiroh jor oldohgui bol unadag tses nuuh 
     
     dropdownContainer.innerHTML = '';
     dropdownContainer.style.display = 'none';
