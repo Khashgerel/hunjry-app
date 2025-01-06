@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             console.log('User data received:', userData);
             
-            // Find matching user
-            const user = userData.users.find(
+            
+            const user = userData.users.find( //user.json-oss heregelchiin medeelllig haih, tulgah 
                 u => u.username.toLowerCase() === username.toLowerCase() && 
                      u.password === password
             );

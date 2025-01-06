@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => { //serverees joriin ugugdliig tatah
     fetch('/api/recipes')
         .then(response => response.json())
         .then(data => {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
 
-function setupDropdown() {
+function setupDropdown() { //hereglegchii oruulj bgaa ugugdluudiig haruulah, haih
     const searchBar = document.querySelector('.search-bar');
     const dropdownContainer = document.querySelector('.dropdown-container');
     const searchbar = document.querySelector('#search-bar');
@@ -56,11 +56,11 @@ function setupDropdown() {
     });
 }
 document.querySelectorAll('.meal-planner td[data-label]').forEach(cell => {
-    cell.addEventListener('dragover', (event) => {
+    cell.addEventListener('dragover', (event) => { //jorig husnegtiin nudend chirch oruulah
         event.preventDefault(); 
     });
     const clearBtn = document.createElement('button');
-    clearBtn.textContent = 'Clear';
+    clearBtn.textContent = 'Clear'; //nudendeh jorig ustgah tovch
     cell.addEventListener('drop', (event) => {
         event.preventDefault();
         const recipeData = event.dataTransfer.getData('text/plain');
