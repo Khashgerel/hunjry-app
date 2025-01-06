@@ -66,34 +66,19 @@ document.querySelectorAll('.meal-planner td[data-label]').forEach(cell => {
         const recipeData = event.dataTransfer.getData('text/plain');
         const recipe = JSON.parse(recipeData);
     
+        // Create clear button
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = 'Clear';
+        clearBtn.className = 'clear-btn';
+    
+        // Store original content in case we need to revert
+        const originalContent = cell.innerHTML;
+    
+        // Update cell content
         cell.innerHTML = `
-          <img src="${recipe.image}" alt="${recipe.name}" style="width:150px; height:150px;">
-          <p>${recipe.name}</p>
+            <img src="${recipe.image}" alt="${recipe.name}" style="width:150px; height:150px;">
+            <p>${recipe.name}</p>
         `;
         cell.appendChild(clearBtn);
-    
-        fetch('/save-recipe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ cellLabel: cell.dataset.label, recipe }),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Recipe saved successfully:', data);
-        })
-        .catch(error => {
-            console.error('Error saving recipe:', error);
-        });
-        clearBtn.addEventListener('click', () => {
-            cell.innerHTML = '';
-        });
     });
-    
 });

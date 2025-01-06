@@ -31,12 +31,6 @@ function updateUserInfo(user) {
             window.location.href = '/htmls/login.html';
         });
     }
-
-    // Remove the duplicate user-profile section since we're using the existing user_info section
-    const duplicateUserProfile = document.querySelector('.user-profile');
-    if (duplicateUserProfile) {
-        duplicateUserProfile.remove();
-    }
 }
 
 async function loadLikedRecipes(userId) {
@@ -70,12 +64,6 @@ async function loadLikedRecipes(userId) {
                 userFavsContainer.appendChild(articleElement);
             }
         });
-
-        // Remove the duplicate liked-foods section since we're using the existing user_favs section
-        const duplicateLikedFoods = document.querySelector('.liked-foods-section');
-        if (duplicateLikedFoods) {
-            duplicateLikedFoods.remove();
-        }
     } catch (error) {
         console.error('Error loading liked recipes:', error);
         const userFavsContainer = document.querySelector('.user_favs');

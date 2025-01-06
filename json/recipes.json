@@ -64,6 +64,11 @@
           "id": 6,
           "body": "Унтаагүй гүнжүүд байна уу?",
           "userId": 2
+        },
+        {
+          "id": 7,
+          "body": "hahah uhsnee haraav",
+          "userId": 1
         }
       ]
     },
@@ -1310,6 +1315,16 @@
         {
           "id": 2,
           "body": "aan zza bolj bsan bna",
+          "userId": 1
+        },
+        {
+          "id": 3,
+          "body": "sainuu ene comment boljinu",
+          "userId": 1
+        },
+        {
+          "id": 4,
+          "body": "Унтаагүй гүнжүүд байна уу?",
           "userId": 1
         }
       ]
