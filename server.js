@@ -181,22 +181,24 @@ app.get('/api/add-comment', (req, res) => {
     }
 });
 
-app.get('/manifest.json', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'manifest.json'));
-});
-
-app.get('/service-worker.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'service-worker.js'));
-});
-
 app.get('*', (req, res) => {
     res.redirect('/htmls/login.html');
 });
 
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
+
 async function initializeDatabase() {
     try {
-        await db.importUsersFromJson();
-        console.log('Users imported successfully');
+        await db.importDataFromJson();
+        console.log('Database initialized with JSON data');
     } catch (error) {
         console.error('Error initializing database:', error);
     }

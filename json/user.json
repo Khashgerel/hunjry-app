@@ -5,11 +5,10 @@
       "username": "Khashgerel",
       "password": "aaaaaaaa",
       "likedFoods": [
-        8,
+        2,
         27,
-        1,
-        5,
-        29
+        29,
+        13
       ],
       "address": "UB",
       "phoneNumber": 99854132,
@@ -39,8 +38,7 @@
         3,
         5,
         8,
-        2,
-        1
+        2
       ],
       "address": "UB",
       "phoneNumber": 99854132,
@@ -50,18 +48,6 @@
       "userId": 4,
       "username": "Uitumen",
       "password": "uuuuuuuu",
-      "likedFoods": [
-        2,
-        4
-      ],
-      "address": "UB",
-      "phoneNumber": 99854132,
-      "email": "kashatheeater@gmail.com"
-    },
-    {
-      "userId": 5,
-      "username": "hongoroo",
-      "password": "hhhhhhhh",
       "likedFoods": [
         2,
         4
