@@ -1,4 +1,8 @@
 let recipesData = [];
+/* HTML хуудсыг ачаалсан үед, /api/recipes API-ээс хоолны жоруудыг татаж авна.
+Жорын ID-ийг URL-аас авч, тухайн жорыг дэлгэц дээр харуулах, мөн сэтгэгдэл, лайк, санал болгох хоол, 
+орц, заавар зэрэг мэдээллийг ачаалж гаргана. */
+
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('/api/recipes');
@@ -40,6 +44,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 });
+/* Сонгосон жортой ижил төрлийн бусад хоолны жоруудыг санал болгох хэсгийг үүсгэдэг. 
+Хэрэглэгчийн сонгосон жорын төрлөөс тохирох 2 хоолыг саналаар харуулна. */
 
 function setupSuggestedFood(id) {
     const sugFoods = document.querySelector('.suggested-foods');
@@ -76,6 +82,8 @@ function setupSuggestedFood(id) {
         sugFoods.appendChild(sugFood);
     });
 }
+/* Тухайн жорын зураг, нэр, рейтинг, лайк болон коммент хийх товчийг харуулдаг. 
+Жорын мэдээлэл олдсон бол дэлгэц дээр харуулна, олдсонгүй бол "Recipe not found." гэж харуулна. */
 
 function updateImage(filter) {
   const recipeImage = document.querySelector('.recipe-image');
@@ -109,6 +117,8 @@ function updateImage(filter) {
     recipeImage.innerHTML = `<p>Recipe not found.</p>`;
   }
 }
+/* Хайлтын хэсэг дээр хэрэглэгчийн бичсэн үгнээс үндэслэн тохирох хоолны жоруудыг dropdown 
+буюу жагсаалтаар харуулна. Хайлтын үр дүн байхгүй бол жагсаалт нууж, байвал харуулна. */
 
 function setupDropdown() {
   const searchBar = document.querySelector('.search-bar');
@@ -148,6 +158,8 @@ function setupDropdown() {
     }
   });
 }
+/* Жорын орцууд болон зааврыг дэлгэц дээр харуулах. Жорын дэлгэрэнгүй мэдээлэл гарахад, тухайн 
+жорын ID-г URL-д нэмнэ. */
 
 function updateIngredient(filter) {
   const recipeContent = document.querySelector('.recipe-content');
@@ -176,6 +188,10 @@ function updateIngredient(filter) {
     recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
   }
 }
+/* Хэрэглэгч нэвтэрсэн бол тухайн жорын лайк товчийг тохируулж, лайк тавих үйлдлийг гүйцэтгэнэ. 
+Хэрэглэгч нэвтрээгүй бол нэвтрэх шаардлагатайг хэлж, нэвтрэх хуудсанд шилжүүлнэ. 
+Лайк товчийг дарахад, like-food API руу хүсэлт илгээж, лайк буюу идэвхжүүлэх/идэвхгүй болгох 
+үйлдлийг гүйцэтгэнэ. */
 
 async function setupLikeButton(recipeId) {
     const likeButton = document.querySelector('.heart-button');
@@ -223,6 +239,9 @@ async function setupLikeButton(recipeId) {
         }
     });
 }
+/* Сэтгэгдэл бичих хэсэг үүсгэдэг. Хэрэглэгч нэвтрээгүй бол нэвтрэхийг шаарддаг. Сэтгэгдэл бичиж, 
+"comments" API руу илгээх бөгөөд амжилттай бол жорын сэтгэгдэлд шинэ сэтгэгдлийг нэмнэ. 
+Мөн шинэ сэтгэгдлийг дэлгэц дээр үзүүлнэ. */
 
 async function setupCommentForm(recipeId) {
     const commentForm = document.querySelector('.comment-input');
@@ -304,6 +323,8 @@ async function setupCommentForm(recipeId) {
         }
     });
 }
+/* Тухайн жорын бүх сэтгэгдлийг дэлгэц дээр харуулдаг. Хоёр дахь удаагийн ачаалалт хийхэд хуучин 
+сэтгэгдлүүдийг устгаж, шинэ сэтгэгдлүүдийг нэмнэ. */
 
 function displayComments(recipeId) {
     const commentsSection = document.querySelector('.comments');

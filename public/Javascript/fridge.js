@@ -1,6 +1,10 @@
 let recipesData = [];
 let ingredientsData = [];
 let activeIngredients = [];
+/* Хуудас ачаалагдсан даруйд хоёр төрлийн API-аас өгөгдөл авах процесс эхэлнэ:
+
+/api/recipes руу хүсэлт илгээж, хоолны жоруудын мэдээллийг ачаална.
+/api/ingredients руу хүсэлт илгээж, орцны мэдээллийг ачаална. */
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/recipes')
@@ -40,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching ingredients:', error));
 });
+/* Хайлтын бар дээр хэрэглэгчийн бичсэн үгийн дагуу хоолны жоруудын сонголт гардаг. Хэрэглэгчийн 
+бичсэн үгийн тохирох жорууд харуулагдана, харин тохирох жор байхгүй бол dropdown унтарна. */
+
 function setupDropdown() {
     const searchBar = document.querySelector('.search-bar');
     const dropdownContainer = document.querySelector('.dropdown-container');
@@ -77,6 +84,9 @@ function setupDropdown() {
         searchBar.appendChild(dropdownContainer);
     });
 }
+/* Орцны жагсаалтыг вэб хуудас дээр харуулдаг. Бүх орцыг HTML жагсаалтад нэмнэ. 
+Ингэснээр хэрэглэгч орцуудыг харах боломжтой болдог. */
+
 function setupIngredients() {
     const orts = document.querySelector('.orts-list');
     orts.innerHTML = '';
@@ -89,6 +99,8 @@ function setupIngredients() {
     });
 
 }
+/* Орцны хайлтын хэсэг. Хэрэглэгч хайлт хийснээр зөвхөн тухайн хайлтын үгтэй тохирсон орцнуудыг 
+харуулдаг. Хайлтын үг тус бүрээр орцуудын харагдах байдал шинэчлэгддэг. */
 
 function searchIngredients() {
     const searchInput = document.getElementById('orts-search');
@@ -107,6 +119,8 @@ function searchIngredients() {
         });
     });
 }
+/* Орцнуудыг сонгох буюу хасах. Хэрэглэгч орцын нэр дээр дарж, тухайн орцыг идэвхжүүлж эсвэл хасаж 
+болно. Сонгосон орцууд нь activeIngredients массивт хадгалагддаг бөгөөд шүүлт хийхэд ашиглагдана. */
 
 function selectIngredient() {
     const ingredientsItems = document.querySelectorAll('.orts-list li');
@@ -127,6 +141,9 @@ function selectIngredient() {
         });
     });
 }
+/* Сонгосон орцуудын дагуу хоолны жоруудыг шүүлт хийх. Хэрэв ямар ч орц сонгогдоогүй бол бүх хоолны 
+жоруудыг харуулна. Харин орцууд сонгогдсон бол, тухайн орцуудтай тохирох жоруудыг шүүж харуулна. 
+Хэрвээ тохирох хоол байхгүй бол "Та сонгосон орцуудтай тохирох хоол олдсонгүй" гэсэн мессеж харуулна. */
 
 function filterFood() {
     const container = document.querySelector('.container');
@@ -154,6 +171,7 @@ function filterFood() {
         container.appendChild(noResultMessage);
     }
 }
+/* Хоолны жорыг HTML хэлбэрээр үүсгэн, хуудас дээр харуулна. Жорын нэр, зураг, холбоос бүхий карточк үүсгэдэг. */
 
 function renderRecipe(recipe, container) {
     const foodCard = document.createElement('section');
