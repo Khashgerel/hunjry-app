@@ -4,24 +4,46 @@ let recipesData = [];
 let filteredData = [];
 let activeFilter = 'all';
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('/api/recipes')
-    .then(response => response.json())
-    .then(data => {
-      if (data && data.recipes) {
-        recipesData = data.recipes;
+function waitForComponents() {
+    return Promise.all([
+        customElements.whenDefined('search-input'),
+        customElements.whenDefined('filter-btn'),
+        customElements.whenDefined('recipe-card'),
+        customElements.whenDefined('page-pagination')
+    ]);
+}
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const filter = urlParams.get('mealType') || 'All';
+document.addEventListener('DOMContentLoaded', async () => {
+    await waitForComponents();
 
+    try {
+        const response = await fetch('/api/recipes');
+        const data = await response.json();
+        
+        if (data && data.recipes) {
+            recipesData = data.recipes;
+            filteredData = recipesData;
+            displayRecipes(currentPage);
+            updatePagination();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+    document.addEventListener('filter-click', (e) => {
+        const filter = e.detail.filter;
         applyFilter(filter);
-        setupFilterButtons();
-        setupDropdown();
-      } else {
-        console.error('Data format error: No "recipes" array in JSON');
-      }
-    })
-    .catch(error => console.error('There has been a problem with your fetch operation:', error));
+    });
+
+    document.addEventListener('search', (e) => {
+        filterRecipes(e.detail.query);
+    });
+
+    document.addEventListener('page-change', (e) => {
+        currentPage = e.detail.page;
+        displayRecipes(currentPage);
+        updatePagination();
+    });
 });
 
 const filterRecipes = (query) => {
@@ -93,7 +115,7 @@ function applyFilter(filter) {
   displayRecipes(currentPage);
   renderPaginationControls();
   document.querySelectorAll('.filter-btn').forEach(button => {
-    button.classList.toggle('active', button.textContent.trim() === filter);
+    button.classList.toggle('active', button.getAttribute('data-filter') === filter);
   });
 }
 
@@ -120,23 +142,8 @@ function displayRecipes(page) {
   const recipesToDisplay = filteredData.slice(start, end);
 
   recipesToDisplay.forEach(recipe => {
-    const recipeCard = document.createElement('section');
-    recipeCard.className = 'recipe-card';
-
-    recipeCard.innerHTML = `
-      <img src="${recipe.image}" alt="${recipe.name}" class="food-pic">
-      <section class="food-info">
-        <h3>${recipe.name}</h3>
-        <p>${recipe.caloriesPerServing || 'N/A'} кал</p>
-        <section class="ports">
-          ${recipe.servings ? '<img src="/iconpic/profile.png">'.repeat(recipe.servings) : 'N/A'}
-        </section>
-        <a href="/htmls/hool_detail.html?id=${recipe.id}">
-          <button class="view-recipe-btn">Жор харах</button>
-        </a>
-      </section>
-    `;
-
+    const recipeCard = document.createElement('recipe-card');
+    recipeCard.recipe = recipe;
     recipeGrid.appendChild(recipeCard);
   });
 }
@@ -173,4 +180,12 @@ function updatePaginationButtons() {
   paginationButtons.forEach((button, index) => {
     button.classList.toggle('active', index + 1 === currentPage);
   });
+}
+
+function updatePagination() {
+  const pagination = document.querySelector('page-pagination');
+  pagination.pages = {
+    current: currentPage,
+    total: Math.ceil(filteredData.length / itemsPerPage)
+  };
 }
