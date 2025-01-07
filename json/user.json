@@ -8,7 +8,8 @@
         2,
         27,
         29,
-        13
+        8,
+        1
       ],
       "address": "UB",
       "phoneNumber": 99854132,
@@ -22,9 +23,6 @@
       "likedFoods": [
         4,
         5,
-        1,
-        6,
-        14,
         2,
         8,
         15
@@ -51,6 +49,18 @@
       "userId": 4,
       "username": "Uitumen",
       "password": "uuuuuuuu",
+      "likedFoods": [
+        2,
+        4
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
+    },
+    {
+      "userId": 5,
+      "username": "Enji",
+      "password": "eeeeeeee",
       "likedFoods": [
         2,
         4

@@ -197,7 +197,7 @@ app.use(express.static('public', {
 
 async function initializeDatabase() {
     try {
-        await db.importDataFromJson();
+        await db.importUsersFromJson();
         console.log('Database initialized with JSON data');
     } catch (error) {
         console.error('Error initializing database:', error);

@@ -74,11 +74,6 @@
           "id": 8,
           "body": "fhfgdfs",
           "userId": 3
-        },
-        {
-          "id": 9,
-          "body": "hhe",
-          "userId": 3
         }
       ]
     },
@@ -145,21 +140,6 @@
           "id": 7,
           "body": "yoo odoo shuud nemegdeed ehellee ynztaiiii",
           "userId": 1
-        },
-        {
-          "id": 8,
-          "body": "comment done guys",
-          "userId": 1
-        },
-        {
-          "id": 9,
-          "body": "za aimar ym bolchlooooooo",
-          "userId": 1
-        },
-        {
-          "id": 10,
-          "body": "hi",
-          "userId": 2
         }
       ]
     },
@@ -648,6 +628,11 @@
           "id": 1,
           "body": "jkasfh",
           "userId": 1
+        },
+        {
+          "id": 2,
+          "body": "ahsjd",
+          "userId": 1
         }
       ]
     },
@@ -698,6 +683,13 @@
         "Оройн хоол",
         "Хөнгөн хоол",
         "Зууш"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "ahsgj",
+          "userId": 2
+        }
       ]
     },
     {
@@ -830,6 +822,13 @@
       "reviewCount": 50,
       "mealType": [
         "Оройн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "ymar aimar nertei hool ve hehe",
+          "userId": 1
+        }
       ]
     },
     {
@@ -920,6 +919,13 @@
       "reviewCount": 26,
       "mealType": [
         "Оройн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "ymar saihan hool ve waaw",
+          "userId": 1
+        }
       ]
     },
     {
