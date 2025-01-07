@@ -3,6 +3,10 @@ let currentPage = 1;
 let recipesData = [];
 let filteredData = [];
 let activeFilter = 'all';
+/* waitForComponents функц нь хэд хэдэн custom элементүүдийг ачаалахад хүлээж байна (жишээ нь, 
+хайлт хийх, шүүлт хийх, жор карт үүсгэх, хуудаслах).
+Хоолны жоруудыг /api/recipes API-аас ачаалж, тэдгээрийг дэлгэц дээр харуулах.
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
   fetch('/api/recipes')
@@ -23,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('There has been a problem with your fetch operation:', error));
 });
+/* Хайлтын үгтэй тохирсон жоруудыг шүүж, харуулдаг. Хайлтын үгийн дагуу жоруудыг фильтрлэж, 
+харуулах хуудас болон хуудаслах товчийг шинэчилнэ. */
 
 const filterRecipes = (query) => {
   query = query.trim().toLowerCase();
@@ -41,6 +47,8 @@ const filterRecipes = (query) => {
   displayRecipes(currentPage);
   renderPaginationControls();
 };
+/* Хайлтын бар дээр хэрэглэгч текст бичих үед, тухайн бичсэн үгтэй тохирох хоолны жорууд 
+dropdown буюу жагсаалтаар харуулах функц. Хэрэв тохирох жор байхгүй бол жагсаалт хаагдана. */
 
 function setupDropdown() {
   const searchBar = document.querySelector('.search-bar');
@@ -79,6 +87,8 @@ function setupDropdown() {
     searchBar.appendChild(dropdownContainer);
   });
 }
+/* Хэрэглэгчийн сонгосон шүүлтээр жоруудыг фильтрлэх. Хэрэв "All" шүүлт сонгогдвол бүх жор харуулна, 
+харин өөр шүүлт сонгосон бол зөвхөн тухайн төрлийн хоолнуудыг харуулна. */
 
 
 function applyFilter(filter) {
@@ -96,6 +106,8 @@ function applyFilter(filter) {
     button.classList.toggle('active', button.textContent.trim() === filter);
   });
 }
+/* Шүүлт хийх товчлууруудыг тохируулах. Хэрэглэгч шүүлт хийх товчийг дарахад тухайн шүүлтээ URL-д 
+хадгалаад, шүүлтийг дагуу хоолны жоруудыг фильтрлэж харуулна. */
 
 function setupFilterButtons() {
   const filterButtons = document.querySelectorAll('.filter-btn');
@@ -110,6 +122,7 @@ function setupFilterButtons() {
     });
   });
 }
+/* Тухайн хуудас дээр харуулах жоруудыг тодорхойлж, recipe-card элемент ашиглан тухайн жоруудыг харуулна. */
 
 function displayRecipes(page) {
   const recipeGrid = document.querySelector('.recipe-grid');
@@ -140,6 +153,8 @@ function displayRecipes(page) {
     recipeGrid.appendChild(recipeCard);
   });
 }
+/* Хуудаслах товчлууруудыг үүсгэж, дэлгэц дээр харуулах. Хэрэв жорууд олон хуудаст хуваагдвал, 
+хуудаслах товчлуур үүсгэж, хэрэглэгч хуудас солих боломжтой болно. */
 
 function renderPaginationControls() {
   const paginationSection = document.querySelector('.pagination');
@@ -167,6 +182,7 @@ function renderPaginationControls() {
     paginationSection.appendChild(paginationButton);
   }
 }
+/* Хуудас солих үед хуудаслах товчийн идэвхжсэн байдал (active) болон бусад товчлуудыг шинэчилнэ. */
 
 function updatePaginationButtons() {
   const paginationButtons = document.querySelectorAll('.pagination-circle');

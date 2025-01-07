@@ -1,3 +1,10 @@
+/* Хуудас бүрэн ачаалагдсаны дараа ажиллах функц юм. Үүнд:
+
+Хэрэглэгчийн мэдээллийг localStorage-аас авч байна. Хэрэв хэрэглэгчийн мэдээлэл байхгүй бол 
+хэрэглэгчийг логин хуудас руу шилжүүлдэг.
+Хэрэглэгчийн мэдээллийг дэлгэцэнд харуулах updateUserInfo функцыг дууддаг.
+Хэрэглэгчийн таалагдсан хоолны жагсаалтыг ачаалах loadLikedRecipes функцыг дууддаг.*/
+
 document.addEventListener('DOMContentLoaded', async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
@@ -11,6 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load and display liked recipes
     loadLikedRecipes(user.userId);
 });
+/* Хэрэглэгчийн мэдээллийг дэлгэц дээр шинэчилж, харуулна. Хэрэглэгчийн нэр, утас, гэрийн хаяг, 
+имэйл зэргийг харуулах бөгөөд хариулах "Системээс гарах" товчийг нэмнэ. Хэрэглэгч гарах товчийг 
+дарвал localStorage-аас хэрэглэгчийн мэдээллийг устгаж, логин хуудас руу шилжүүлдэг. */
 
 function updateUserInfo(user) {
     // Update the user info section
@@ -31,13 +41,12 @@ function updateUserInfo(user) {
             window.location.href = '/htmls/login.html';
         });
     }
-
-    // Remove the duplicate user-profile section since we're using the existing user_info section
-    const duplicateUserProfile = document.querySelector('.user-profile');
-    if (duplicateUserProfile) {
-        duplicateUserProfile.remove();
-    }
 }
+/* Хэрэглэгчийн таалагдсан хоолнуудыг серверээс ачаалж, тэдгээрийг дэлгэцэнд харуулах зорилготой.
+
+userId-ийг ашиглан серверээс хоолны мэдээллийг ачаалж байгаа.
+Хэрэв хоолны жагсаалт хоосон бол "Таалагдсан хоол байхгүй байна" гэсэн мессеж харуулдаг.
+Таалагдсан хоол байгаа тохиолдолд хоол бүрийг дэлгэцэнд дүрс болон нэртэй нь харуулна. */
 
 async function loadLikedRecipes(userId) {
     try {
@@ -70,12 +79,6 @@ async function loadLikedRecipes(userId) {
                 userFavsContainer.appendChild(articleElement);
             }
         });
-
-        // Remove the duplicate liked-foods section since we're using the existing user_favs section
-        const duplicateLikedFoods = document.querySelector('.liked-foods-section');
-        if (duplicateLikedFoods) {
-            duplicateLikedFoods.remove();
-        }
     } catch (error) {
         console.error('Error loading liked recipes:', error);
         const userFavsContainer = document.querySelector('.user_favs');
