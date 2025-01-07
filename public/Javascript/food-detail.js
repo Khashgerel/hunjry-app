@@ -52,7 +52,8 @@ function setupSuggestedFood(id) {
     sugFoods.innerHTML = ''; 
     
     const currentRecipe = recipesData.find(recipe => recipe.id === id);
-    if (!currentRecipe) return;
+    if (!currentRecipe) 
+        return;
 
     const filteredData = recipesData.filter(recipe => 
         recipe.id !== id && 
@@ -86,36 +87,36 @@ function setupSuggestedFood(id) {
 Жорын мэдээлэл олдсон бол дэлгэц дээр харуулна, олдсонгүй бол "Recipe not found." гэж харуулна. */
 
 function updateImage(filter) {
-  const recipeImage = document.querySelector('.recipe-image');
-  recipeImage.innerHTML = '';
-  
-  const recipe = recipesData.find(recipe => recipe.id === filter);
-  
-  if (recipe) {
-    recipeImage.innerHTML = `
-      <img src="${recipe.image}" alt="${recipe.name}">
-      <h3>${recipe.name}</h3>
-      <article class="icon">
-        <section class="icons-container">
-          <button class="heart-button">
-            <img src="/iconpic/heart.png" alt="like">
-          </button>
-          <button class="comment-button">
-            <img src="/iconpic/comment.png" alt="comment">
-          </button>
-        </section>
-        <nav class="rating-container">
-          ${recipe.rating ? '<img src="/iconpic/pizza.png" alt="unelgee">'.repeat(recipe.rating) : 'N/A'}
-        </nav>
-      </article>
-      <section id="suggested-foods" class="suggested-foods">
-        <section class="suggested-food"></section>
-        <section class="suggested-food"></section>
-      </section>
-    `;
-  } else {
-    recipeImage.innerHTML = `<p>Recipe not found.</p>`;
-  }
+    const recipeImage = document.querySelector('.recipe-image');
+    recipeImage.innerHTML = '';
+    
+    const recipe = recipesData.find(recipe => recipe.id === filter);
+    
+    if (recipe) {
+        recipeImage.innerHTML = `
+            <img src="${recipe.image}" alt="${recipe.name}">
+            <h3>${recipe.name}</h3>
+            <article class="icon">
+                <section class="icons-container">
+                    <button class="heart-button">
+                        <img src="/iconpic/heart.png" alt="like">
+                    </button>
+                    <button class="comment-button">
+                        <img src="/iconpic/comment.png" alt="comment">
+                    </button>
+                </section>
+                <nav class="rating-container">
+                    ${recipe.rating ? '<img src="/iconpic/pizza.png" alt="unelgee">'.repeat(recipe.rating) : 'N/A'}
+                </nav>
+            </article>
+            <section id="suggested-foods" class="suggested-foods">
+                <section class="suggested-food"></section>
+                <section class="suggested-food"></section>
+            </section>
+        `;
+    } else {
+        recipeImage.innerHTML = `<p>Recipe not found.</p>`;
+    }
 }
 /* Хайлтын хэсэг дээр хэрэглэгчийн бичсэн үгнээс үндэслэн тохирох хоолны жоруудыг dropdown 
 буюу жагсаалтаар харуулна. Хайлтын үр дүн байхгүй бол жагсаалт нууж, байвал харуулна. */
