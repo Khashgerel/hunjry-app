@@ -2,15 +2,71 @@
   "users": [
     {
       "userId": 1,
-      "username": "user1",
-      "email": "user1@example.com",
-      "password_hash": null
+      "username": "Khashgerel",
+      "password": "aaaaaaaa",
+      "likedFoods": [
+        27,
+        29,
+        8,
+        1,
+        2
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
     },
     {
       "userId": 2,
-      "username": "user2",
-      "email": "user2@example.com",
-      "password_hash": null
+      "username": "Enkhjargal",
+      "password": "eeeeeeee",
+      "likedFoods": [
+        4,
+        5,
+        2,
+        8,
+        15
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
+    },
+    {
+      "userId": 3,
+      "username": "Aiym",
+      "password": "iiiiiiii",
+      "likedFoods": [
+        3,
+        5,
+        2,
+        8
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
+    },
+    {
+      "userId": 4,
+      "username": "Uitumen",
+      "password": "uuuuuuuu",
+      "likedFoods": [
+        2,
+        4
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
+    },
+    {
+      "userId": 5,
+      "username": "Enji",
+      "password": "eeeeeeee",
+      "likedFoods": [
+        2,
+        4
+      ],
+      "address": "UB",
+      "phoneNumber": 99854132,
+      "email": "kashatheeater@gmail.com"
     }
   ]
 }
