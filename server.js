@@ -4,6 +4,8 @@ const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const apiDocs = require('./api-docs.json');
 const db = require('./database.js');
+const sharp = require('sharp');
+const compression = require('compression');
 
 const app = express();
 let PORT = 3000;
@@ -55,32 +57,57 @@ app.get('/api/users', (req, res) => {
     res.json(userData);
 });
 
+app.post('/api/users', (req, res) => {
+    const {Username, Password, likedfoods, Address, Phonenumber, Email } = req.body;
+    try {
+        const usersPath = path.join(__dirname, 'json', 'user.json');
+        const usersData = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
+
+        const newUser = {
+            userId: userData.users.length > 0 ? Math.max(...userData.users.map(c => c.id)) + 1 : 1,
+            username: Username,
+            password: Password,
+            likedFoods: likedfoods,
+            address: Address,
+            phonenumber: Phonenumber,
+            email: Email
+        }
+
+        usersData.users.push(newUser);
+        fs.writeFileSync(usersPath, JSON.stringify(usersData, null, 2));
+        res.json({ success: true, message: 'User added successfully' });
+    } catch (error) {
+        console.error("Error adding new user:", error);
+        res.status(469).json({ success: false, message: 'Хэрэглэгч нэмэх үед алдаа гарлаа' });
+    }
+})
+
 app.post('/api/comments', (req, res) => {
     const { recipeId, userId, body } = req.body;
-    
+
     try {
         const recipesPath = path.join(__dirname, 'json', 'recipes.json');
         const recipesData = JSON.parse(fs.readFileSync(recipesPath, 'utf8'));
-        
+
         const recipe = recipesData.recipes.find(r => r.id === recipeId);
         if (!recipe) {
             return res.status(404).json({ success: false, message: 'Жор олдсонгүй' });
         }
-        
+
         if (!recipe.comments) {
             recipe.comments = [];
         }
-        
+
         const newComment = {
             id: recipe.comments.length > 0 ? Math.max(...recipe.comments.map(c => c.id)) + 1 : 1,
             body: body,
             userId: userId
         };
-        
+
         recipe.comments.push(newComment);
-        
+
         fs.writeFileSync(recipesPath, JSON.stringify(recipesData, null, 2));
-        
+
         res.json({ success: true, comment: newComment });
     } catch (error) {
         console.error('Error adding comment:', error);
@@ -89,34 +116,34 @@ app.post('/api/comments', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'htmls', 'login.html'));
+    res.sendFile(path.join(__dirname, 'public', 'htmls', 'login.html'));
 });
 
 app.get('/htmls/:file', (req, res) => {
-  const file = req.params.file;
-  res.sendFile(path.join(__dirname, 'public', 'htmls', file));
+    const file = req.params.file;
+    res.sendFile(path.join(__dirname, 'public', 'htmls', file));
 });
 
 app.post('/api/like-food', (req, res) => {
     const { userId, recipeId } = req.body;
-    
+
     const user = userData.users.find(u => u.userId === userId);
-    
+
     if (user) {
         if (!user.likedFoods) {
             user.likedFoods = [];
         }
-        
+
         if (!user.likedFoods.includes(recipeId)) {
             user.likedFoods.push(recipeId);
-            
+
             fs.writeFileSync('./json/user.json', JSON.stringify(userData, null, 2));
-            
+
             res.json({ success: true, message: 'Food added to favorites' });
         } else {
             user.likedFoods = user.likedFoods.filter(id => id !== recipeId);
             fs.writeFileSync('./json/user.json', JSON.stringify(userData, null, 2));
-            
+
             res.json({ success: true, message: 'Food removed from favorites' });
         }
     } else {
@@ -127,18 +154,18 @@ app.post('/api/like-food', (req, res) => {
 app.get('/api/user/:userId/liked-recipes', (req, res) => {
     const userId = parseInt(req.params.userId);
     const user = userData.users.find(u => u.userId === userId);
-    
+
     if (user) {
         if (!user.likedFoods) {
             user.likedFoods = [];
         }
-        
+
         const likedRecipes = user.likedFoods
-            .map(recipeId => 
+            .map(recipeId =>
                 recipesData.recipes.find(recipe => recipe.id === recipeId)
             )
-            .filter(recipe => recipe !== undefined); 
-        
+            .filter(recipe => recipe !== undefined);
+
         res.json(likedRecipes);
     } else {
         res.json([]);
@@ -148,33 +175,33 @@ app.get('/api/user/:userId/liked-recipes', (req, res) => {
 app.get('/api/add-comment', (req, res) => {
     try {
         const { userId, recipeId, comment, date } = req.body;
-        
+
         const recipesData = JSON.parse(fs.readFileSync('json/recipes.json', 'utf8'));
         const usersData = JSON.parse(fs.readFileSync('json/user.json', 'utf8'));
-        
+
         const user = usersData.users.find(u => u.userId === userId);
-        
+
         const recipe = recipesData.recipes.find(r => r.id === recipeId);
-        
+
         if (!recipe) {
             return res.status(404).json({ success: false, message: 'Recipe not found' });
         }
-        
+
         if (!recipe.comments) {
             recipe.comments = [];
         }
-        
+
         recipe.comments.push({
             userId,
             userName: user ? user.name : 'Anonymous',
             comment,
             date
         });
-        
+
         fs.writeFileSync('json/recipes.json', JSON.stringify(recipesData, null, 2));
-        
+
         res.json({ success: true });
-        
+
     } catch (error) {
         console.error('Error adding comment:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
@@ -186,14 +213,40 @@ app.get('*', (req, res) => {
 });
 
 app.use(express.static('public', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
+    maxAge: '1y',
+    setHeaders: (res, path) => {
+        if (path.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-cache');
+        } else if (path.match(/\.(css|js|jpg|png|gif|ico)$/)) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000');
+        }
     }
-  }
 }));
+
+app.use('/images', async (req, res, next) => {
+    if (!req.url.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return next();
+    }
+
+    const width = parseInt(req.query.width) || 800; // Default width
+    const imagePath = path.join(__dirname, 'public', 'images', req.url);
+
+    try {
+        const resizedImage = await sharp(imagePath)
+            .resize(width, null, {
+                withoutEnlargement: true,
+                fit: 'inside'
+            })
+            .webp({ quality: 80 })
+            .toBuffer();
+
+        res.setHeader('Content-Type', 'image/webp');
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        res.send(resizedImage);
+    } catch (error) {
+        next();
+    }
+});
 
 async function initializeDatabase() {
     try {
@@ -220,3 +273,21 @@ const server = app.listen(PORT)
     .on('listening', () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     });
+
+// Optimize image encoding
+const optimizeImage = async (imagePath, width) => {
+  return sharp(imagePath)
+    .resize(width, null, {
+      withoutEnlargement: true,
+      fit: 'inside'
+    })
+    .webp({ 
+      quality: 80,
+      effort: 6,
+      lossless: false
+    })
+    .toBuffer();
+};
+
+// Use compression middleware
+app.use(compression());

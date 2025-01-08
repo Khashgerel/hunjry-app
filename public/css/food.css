@@ -273,6 +273,13 @@ footer ul li {
     color: #555;
 }
 
+.footer-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 footer ul li:hover {
     cursor: pointer;
     text-decoration: underline;

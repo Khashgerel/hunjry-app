@@ -1,100 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хоолны төрөл</title>
+    <meta name="description" content="Hungry App - Монголын хамгийн том жорын сан. Амттай хоол, амтлагч, өглөөний цай, оройн хоол, амттан, зууш, хөнгөн хоол зэрэг олон төрлийн жор.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, хоол хийх, амттай хоол, өглөөний цай, оройн хоол, амттан, зууш">
+    <meta name="author" content="Hungry App Team">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Hungry App - Хоолны жорын сан">
+    <meta property="og:description" content="Монголын хамгийн том жорын сан. Амттай хоол хийх жор, зааврыг манайхаас.">
+    <meta property="og:image" content="/iconpic/logo.gif">
+    <meta property="og:url" content="http://localhost:3000/htmls/food.html">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/css/food.css" as="style">
+    <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
+    <link rel="canonical" href="http://localhost:3000/htmls/food.html" />
+    <link rel="alternate" href="http://localhost:3000/htmls/food.html" hreflang="mn" />
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Hungry App - Хоолны жорын сан | Монголын хамгийн том жорын цуглуулга</title>
     <link rel="stylesheet" href="/css/food.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/Javascript/components/SearchInput.js"></script>
-    <script type="module" src="/Javascript/components/FilterButton.js"></script>
-    <script type="module" src="/Javascript/components/RecipeCard.js"></script>
-    <script type="module" src="/Javascript/components/Pagination.js"></script>
+    
+    <!-- Defer non-critical scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script type="module" src="/Javascript/components/SearchInput.js" defer></script>
+    <script type="module" src="/Javascript/components/FilterButton.js" defer></script>
+    <script type="module" src="/Javascript/components/RecipeCard.js" defer></script>
+    <script type="module" src="/Javascript/components/Pagination.js" defer></script>
     <script type="module" src="/Javascript/food-info.js" defer></script>
-
+    <script src="/register-sw.js" defer></script>
 </head>
 
 <body>
-    <header>
-        <a class="logo" href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Logo" width="45" height="45">
+    <a href="#main-content" class="skip-link visually-hidden">Үндсэн агуулга руу очих</a>
+    
+    <header role="banner">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас руу буцах">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
 
-        <search-input></search-input>
+        <search-input role="search" aria-label="Хоолны хайлт"></search-input>
 
-        <nav class="icons">
-            <a href="nuur.html"><img src="/iconpic/log-out.png" alt="log-out"></a>
-            <a href="fridge.html"><img src="/iconpic/fridge.png" alt="fridge" id="hurgugch"></a>
-            <a href="plan.html"><img src="/iconpic/plan.png" alt="plan" id="tuluvluguu"></a>
-            <a href="food.html"><img src="/iconpic/food.png" alt="food" id="hool"></a>
-            <a href="hereglegch.html"><img src="/iconpic/profile.png" alt="profile" id="hereglegch"></a>
+        <nav class="icons" aria-label="Үндсэн цэс" role="navigation">
+            <a href="nuur.html" aria-label="Системээс гарах">
+                <img src="/iconpic/log-out.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Гарах</span>
+            </a>
+            <a href="fridge.html" aria-label="Хөргөгч рүү очих">
+                <img src="/iconpic/fridge.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хөргөгч</span>
+            </a>
+            <a href="plan.html" aria-label="Төлөвлөгөө рүү очих">
+                <img src="/iconpic/plan.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Төлөвлөгөө</span>
+            </a>
+            <a href="food.html" aria-label="Хоолны жагсаалт руу очих" aria-current="page">
+                <img src="/iconpic/food.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хоол</span>
+            </a>
+            <a href="hereglegch.html" aria-label="Хэрэглэгчийн профайл руу очих">
+                <img src="/iconpic/profile.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Профайл</span>
+            </a>
         </nav>
     </header>
 
-    <main>
-        <article class="filter-section">
-            <filter-btn filter="All" active></filter-btn>
-            <filter-btn filter="Амтлагч хоол"></filter-btn>
-            <filter-btn filter="Өглөөний цай"></filter-btn>
-            <filter-btn filter="Уух зүйл"></filter-btn>
-            <filter-btn filter="Оройн хоол"></filter-btn>
-            <filter-btn filter="Амттан"></filter-btn>
-            <filter-btn filter="Өдрийн хоол"></filter-btn>
-            <filter-btn filter="Зууш"></filter-btn>
-            <filter-btn filter="Хөнгөн хоол"></filter-btn>
-        </article>
-
-        <article class="recipe-grid">
-        </article>
+    <main id="main-content" role="main" tabindex="-1">
+        <h1 class="visually-hidden">Хоолны жорын сан</h1>
         
-        <page-pagination></page-pagination>
+        <nav class="filter-section" aria-label="Хоолны төрлөөр шүүх" role="navigation">
+            <filter-btn filter="All" active aria-label="Бүх төрөл харах" aria-pressed="true"></filter-btn>
+            <filter-btn filter="Амтлагч хоол" aria-label="Зөвхөн амтлагч хоол харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Өглөөний цай" aria-label="Зөвхөн өглөөний цай харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Уух зүйл" aria-label="Зөвхөн уух зүйл харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Оройн хоол" aria-label="Зөвхөн оройн хоол харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Амттан" aria-label="Зөвхөн амттан харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Өдрийн хоол" aria-label="Зөвхөн өдрийн хоол харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Зууш" aria-label="Зөвхөн зууш харах" aria-pressed="false"></filter-btn>
+            <filter-btn filter="Хөнгөн хоол" aria-label="Зөвхөн хөнгөн хоол харах" aria-pressed="false"></filter-btn>
+        </nav>
+
+        <section class="recipe-grid" aria-label="Жорын жагсаалт" role="region">
+            <div id="recipes-status" class="visually-hidden" role="status" aria-live="polite">
+                Жорын жагсаалт ачаалж байна
+            </div>
+        </section>
+
+        <page-pagination role="navigation" aria-label="Хуудасны жагсаалт"></page-pagination>
     </main>
-    <footer>
-        <section class="recipe_categories">
-            <h3>Жор төрөл</h3>
-            <ul>
-                <li>Оройн хоол</li>
-                <li>Өглөөний хоол</li>
-                <li>Амттан</li>
-                <li>Эрүүл хоол</li>
-                <li>Хүүхдэд зориулсан</li>
-            </ul>
-        </section>
-        <section class="meal-types">
-            <h3>Оройн хоол</h3>
-            <ul>
-                <li>Тахиа</li>
-                <li>Үхрийн мах</li>
-                <li>Суп, шөл</li>
-            </ul>
-        </section>
-        <section class="international-cuisine">
-            <h3>Орон орны хоол</h3>
-            <ul>
-                <li>Азийн</li>
-                <li>Италийн</li>
-                <li>Грек</li>
-            </ul>
-        </section>
-        <section class="seasons">
-            <h3>Улирал</h3>
-            <ul>
-                <li>Хавар</li>
-                <li>Зун</li>
-                <li>Намар</li>
-                <li>Өвөл</li>
-            </ul>
-        </section>
-        <section class="social-links">
-            <h3>Холбоо барих</h3>
-            <ul>
-                <li>Facebook</li>
-                <li>Instagram</li>
-                <li>X (Twitter)</li>
-            </ul>
-        </section>
+
+    <footer role="contentinfo">
+        <nav class="footer-nav" aria-label="Нэмэлт цэс">
+            <section class="recipe_categories">
+                <h3>Жор төрөл</h3>
+                <ul>
+                    <li>Оройн хоол</li>
+                    <li>Өглөөний хоол</li>
+                    <li>Амттан</li>
+                    <li>Эрүүл хоол</li>
+                    <li>Хүүхдэд зориулсан</li>
+                </ul>
+            </section>
+            <section class="meal-types">
+                <h3>Оройн хоол</h3>
+                <ul>
+                    <li>Тахиа</li>
+                    <li>Үхрийн мах</li>
+                    <li>Суп, шөл</li>
+                </ul>
+            </section>
+            <section class="international-cuisine">
+                <h3>Орон орны хоол</h3>
+                <ul>
+                    <li>Азийн</li>
+                    <li>Италийн</li>
+                    <li>Грек</li>
+                </ul>
+            </section>
+            <section class="seasons">
+                <h3>Улирал</h3>
+                <ul>
+                    <li>Хавар</li>
+                    <li>Зун</li>
+                    <li>Намар</li>
+                    <li>Өвөл</li>
+                </ul>
+            </section>
+            <section class="social-links">
+                <h3>Холбоо барих</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Instagram</li>
+                    <li>X (Twitter)</li>
+                </ul>
+            </section>
+        </nav>
     </footer>
+
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #4CAF50;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
 </body>
 
 </html>

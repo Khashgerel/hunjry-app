@@ -4,79 +4,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Төлөвлөгөө</title>
+    <meta name="description" content="Hungry App - 7 хоногийн хоолны төлөвлөгөө. Өглөө, өдөр, оройн хоолоо урьдчилан төлөвлөж, амжилттай хоол хийгээрэй.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, хоолны төлөвлөгөө, 7 хоног, өглөөний хоол, өдрийн хоол, оройн хоол">
+    <meta name="author" content="Hungry App Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Hungry App - 7 хоногийн хоолны төлөвлөгөө">
+    <meta property="og:description" content="Hungry App - 7 хоногийн хоолны төлөвлөгөө. Өглөө, өдөр, оройн хоолоо урьдчилан төлөвлөж, амжилттай хоол хийгээрэй.">
+    <meta property="og:image" content="/iconpic/logo.gif">
+    <meta property="og:url" content="http://localhost:3000/htmls/plan.html">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/css/plan.css" as="style">
+    <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
+    <link rel="canonical" href="http://localhost:3000/htmls/plan.html" />
+    <link rel="alternate" href="http://localhost:3000/htmls/plan.html" hreflang="mn" />
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Hungry App - 7 хоногийн хоолны төлөвлөгөө | Амжилттай хоол хийх нь</title>
     <link rel="stylesheet" href="/css/plan.css">
+    <script src="/register-sw.js" defer></script>
     <script src="/Javascript/plan.js" defer></script>
 </head>
 
 <body>
-    <header>
-        <a class="logo" href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Logo" width="45" height="45">
+    <a href="#main-content" class="skip-link visually-hidden">Үндсэн агуулга руу очих</a>
+    
+    <header role="banner">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас руу буцах">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
 
         <section class="search-bar">
-            <input type="text" name="search" id="search-bar" placeholder="Хоолны нэр">
-            <section class="dropdown-container"></section>
+            <label for="search-bar" class="visually-hidden">Хоолны нэрээр хайх</label>
+            <input type="search" 
+                   name="search" 
+                   id="search-bar" 
+                   placeholder="Хоолны нэр"
+                   aria-label="Хоолны нэрээр хайх">
+            <section class="dropdown-container" aria-live="polite"></section>
         </section>
 
-        <section class="icons">
-            <a href="nuur.html"><img src="/iconpic/log-out.png" alt="log-out"></a>
-            <a href="fridge.html"><img src="/iconpic/fridge.png" alt="fridge" id="hurgugch"></a>
-            <a href="plan.html"><img src="/iconpic/plan.png" alt="plan" id="tuluvluguu"></a>
-            <a href="food.html"><img src="/iconpic/food.png" alt="food" id="hool"></a>
-            <a href="hereglegch.html"><img src="/iconpic/profile.png" alt="profile" id="hhereglegch"></a>
-        </section>
+        <nav class="icons" aria-label="Үндсэн цэс" role="navigation">
+            <a href="nuur.html" aria-label="Системээс гарах">
+                <img src="/iconpic/log-out.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Гарах</span>
+            </a>
+            <a href="fridge.html" aria-label="Хөргөгч рүү очих">
+                <img src="/iconpic/fridge.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хөргөгч</span>
+            </a>
+            <a href="plan.html" aria-label="Төлөвлөгөө рүү очих" aria-current="page">
+                <img src="/iconpic/plan.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Төлөвлөгөө</span>
+            </a>
+            <a href="food.html" aria-label="Хоолны жагсаалт руу очих">
+                <img src="/iconpic/food.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хоол</span>
+            </a>
+            <a href="hereglegch.html" aria-label="Хэрэглэгчийн профайл руу очих">
+                <img src="/iconpic/profile.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Профайл</span>
+            </a>
+        </nav>
     </header>
-    <main>
-        <table class="meal-planner">
+
+    <main id="main-content" role="main" tabindex="-1">
+        <h1 class="visually-hidden">7 хоногийн хоолны төлөвлөгөө</h1>
+        
+        <table class="meal-planner" role="grid" aria-label="7 хоногийн хоолны төлөвлөгөө">
+            <caption class="visually-hidden">7 хоногийн хоолны цагийн хуваарь</caption>
             <thead>
                 <tr>
-                    <th class="meal-times"></th>
-                    <th class="days">Даваа</th>
-                    <th class="days">Мягмар</th>
-                    <th class="days">Лхагва</th>
-                    <th class="days">Пүрэв</th>
-                    <th class="days">Баасан</th>
-                    <th class="days">Бямба</th>
-                    <th class="days">Ням</th>
+                    <th scope="col" class="meal-times"></th>
+                    <th scope="col" class="days">Даваа</th>
+                    <th scope="col" class="days">Мягмар</th>
+                    <th scope="col" class="days">Лхагва</th>
+                    <th scope="col" class="days">Пүрэв</th>
+                    <th scope="col" class="days">Баасан</th>
+                    <th scope="col" class="days">Бямба</th>
+                    <th scope="col" class="days">Ням</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td data-label="Өглөө">Өглөө</td>
-                    <td data-label="Даваа"></td>
-                    <td data-label="Мягмар"></td>
-                    <td data-label="Лхагва"></td>
-                    <td data-label="Пүрэв"></td>
-                    <td data-label="Баасан"></td>
-                    <td data-label="Бямба"></td>
-                    <td data-label="Ням"></td>
+                    <th scope="row" data-label="Өглөө">Өглөө</th>
+                    <td data-label="Даваа" aria-label="Даваа өглөө"></td>
+                    <td data-label="Мягмар" aria-label="Мягмар өглөө"></td>
+                    <td data-label="Лхагва" aria-label="Лхагва өглөө"></td>
+                    <td data-label="Пүрэв" aria-label="Пүрэв өглөө"></td>
+                    <td data-label="Баасан" aria-label="Баасан өглөө"></td>
+                    <td data-label="Бямба" aria-label="Бямба өглөө"></td>
+                    <td data-label="Ням" aria-label="Ням өглөө"></td>
                 </tr>
                 <tr>
-                    <td data-label="Өдөр">Өдөр</td>
-                    <td data-label="Даваа"></td>
-                    <td data-label="Мягмар"></td>
-                    <td data-label="Лхагва"></td>
-                    <td data-label="Пүрэв"></td>
-                    <td data-label="Баасан"></td>
-                    <td data-label="Бямба"></td>
-                    <td data-label="Ням"></td>
+                    <th scope="row" data-label="Өдөр">Өдөр</th>
+                    <td data-label="Даваа" aria-label="Даваа Өдөр"></td>
+                    <td data-label="Мягмар" aria-label="Мягмар Өдөр"></td>
+                    <td data-label="Лхагва" aria-label="Лхагва Өдөр"></td>
+                    <td data-label="Пүрэв" aria-label="Пүрэв Өдөр"></td>
+                    <td data-label="Баасан" aria-label="Баасан Өдөр"></td>
+                    <td data-label="Бямба" aria-label="Бямба Өдөр"></td>
+                    <td data-label="Ням" aria-label="Ням Өдөр"></td>
                 </tr>
-                <tr>
-                    <td data-label="Орой">Орой</td>
-                    <td data-label="Даваа"></td>
-                    <td data-label="Мягмар"></td>
-                    <td data-label="Лхагва"></td>
-                    <td data-label="Пүрэв"></td>
-                    <td data-label="Баасан"></td>
-                    <td data-label="Бямба"></td>
-                    <td data-label="Ням"></td>
+                <tr></tr>
+                    <th scope="row" data-label="Орой">Орой</th>
+                    <td data-label="Даваа" aria-label="Даваа Орой"></td>
+                    <td data-label="Мягмар" aria-label="Мягмар Орой"></td>
+                    <td data-label="Лхагва" aria-label="Лхагва Орой"></td>
+                    <td data-label="Пүрэв" aria-label="Пүрэв Орой"></td>
+                    <td data-label="Баасан" aria-label="Баасан Орой"></td>
+                    <td data-label="Бямба" aria-label="Бямба Орой"></td>
+                    <td data-label="Ням" aria-label="Ням Орой"></td>
                 </tr>
             </tbody>
         </table>
     </main>
-    <footer>
+
+    <footer role="contentinfo">
         <section class="recipe_categories">
             <h3>Жор төрөл</h3>
             <ul>
@@ -121,6 +174,33 @@
             </ul>
         </section>
     </footer>
+
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #4CAF50;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
 </body>
 
 </html>

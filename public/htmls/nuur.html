@@ -1,87 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нүүр хуудас</title>
+    <meta name="description" content="Hungry App - Монголын хамгийн том жорын сан. Амттай хоол хийх жор, зааврыг манайхаас.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, хоол хийх, амттай хоол">
+    <meta name="author" content="Hungry App Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/css/nuur.css" as="style">
+    <link rel="preload" href="/foodpic/519.jpg" as="image" type="image/jpeg">
+    <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <script src="/register-sw.js" defer></script>
+    
+    <title>Hungry App - Нүүр | Монголын хамгийн том жорын сан</title>
     <link rel="stylesheet" href="/css/nuur.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap" 
+          rel="stylesheet" 
+          media="print" 
+          onload="this.media='all'">
 </head>
+
 <body>
     <header>
-        <a class="logo" href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Logo" width="45" height="45">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
 
         <section class="search-bar">
-            <input type="search" name="search" id="search-bar" placeholder="Хоолны нэр">
+            <input type="search" 
+                   name="search" 
+                   id="search-bar" 
+                   placeholder="Хоолны нэр"
+                   aria-label="Хоолны нэрээр хайх">
         </section>
 
-        <section class="icons">
-            <a href="/htmls/nuur.html"><img src="/iconpic/log-out.png" alt="log-out"></a>
-            <a href="/htmls/fridge.html"><img src="/iconpic/fridge.png" alt="fridge" id="hurgugch"></a>
-            <a href="/htmls/plan.html"><img src="/iconpic/plan.png" alt="plan" id="tuluvluguu"></a>
-            <a href="/htmls/food.html"><img src="/iconpic/food.png" alt="food" id="hool"></a>
-            <a href="/htmls/hereglegch.html"><img src="/iconpic/profile.png" alt="profile" id="hhereglegch"></a>
-        </section>
+        <nav class="icons" aria-label="Үндсэн цэс">
+            <a href="/htmls/nuur.html" aria-label="Гарах">
+                <img src="/iconpic/log-out.png" alt="Гарах" width="30" height="30" loading="lazy">
+            </a>
+            <a href="/htmls/fridge.html" aria-label="Хөргөгч">
+                <img src="/iconpic/fridge.png" alt="Хөргөгч" width="30" height="30" loading="lazy">
+            </a>
+            <a href="/htmls/plan.html" aria-label="Төлөвлөгөө">
+                <img src="/iconpic/plan.png" alt="Төлөвлөгөө" width="30" height="30" loading="lazy">
+            </a>
+            <a href="/htmls/food.html" aria-label="Хоол">
+                <img src="/iconpic/food.png" alt="Хоол" width="30" height="30" loading="lazy">
+            </a>
+            <a href="/htmls/hereglegch.html" aria-label="Профайл">
+                <img src="/iconpic/profile.png" alt="Профайл" width="30" height="30" loading="lazy">
+            </a>
+        </nav>
     </header>
-        <main>
-         <section class="hero">
-             <article class="hero-content">
+    <main>
+        <section class="hero">
+            <article class="hero-content">
                 <h1>Хоол хийх</h1>
                 <h2>Гоё шид</h2>
                 <a href="/htmls/fridge.html">
-                <button>Хөргөгч дүүргэх</button></a>
-            
-                </article>
-            </section>
-        </main>
-        <footer>
-            <section class="recipe_categories">
-                <h3>Жор төрөл</h3>
-                <ul>
-                    <li>Оройн хоол</li>
-                    <li>Өглөөний хоол</li>
-                    <li>Амттан</li>
-                    <li>Эрүүл хоол</li>
-                    <li>Хүүхдэд зориулсан</li>
-                </ul>
-            </section>
-            <section class="meal-types">
-                <h3>Оройн хоол</h3>
-                <ul>
-                    <li>Тахиа</li>
-                    <li>Үхрийн мах</li>
-                    <li>Суп, шөл</li>
-                </ul>
-            </section>
-            <section class="international-cuisine">
-                <h3>Орон орны хоол</h3>
-                <ul>
-                    <li>Азийн</li>
-                    <li>Италийн</li>
-                    <li>Грек</li>
-                </ul>
-            </section>
-            <section class="seasons">
-                <h3>Улирал</h3>
-                <ul>
-                    <li>Хавар</li>
-                    <li>Зун</li>
-                    <li>Намар</li>
-                    <li>Өвөл</li>
-                </ul>
-            </section>
-            <section class="social-links">
-                <h3>Холбоо барих</h3>
-                <ul>
-                    <li>Facebook</li>
-                    <li>Instagram</li>
-                    <li>X (Twitter)</li>
-                </ul>
-            </section>
-        </footer>
+                    <button>Хөргөгч дүүргэх</button></a>
+
+            </article>
+        </section>
+    </main>
+    <footer>
+        <section class="recipe_categories">
+            <h3>Жор төрөл</h3>
+            <ul>
+                <li>Оройн хоол</li>
+                <li>Өглөөний хоол</li>
+                <li>Амттан</li>
+                <li>Эрүүл хоол</li>
+                <li>Хүүхдэд зориулсан</li>
+            </ul>
+        </section>
+        <section class="meal-types">
+            <h3>Оройн хоол</h3>
+            <ul>
+                <li>Тахиа</li>
+                <li>Үхрийн мах</li>
+                <li>Суп, шөл</li>
+            </ul>
+        </section>
+        <section class="international-cuisine">
+            <h3>Орон орны хоол</h3>
+            <ul>
+                <li>Азийн</li>
+                <li>Италийн</li>
+                <li>Грек</li>
+            </ul>
+        </section>
+        <section class="seasons">
+            <h3>Улирал</h3>
+            <ul>
+                <li>Хавар</li>
+                <li>Зун</li>
+                <li>Намар</li>
+                <li>Өвөл</li>
+            </ul>
+        </section>
+        <section class="social-links">
+            <h3>Холбоо барих</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>X (Twitter)</li>
+            </ul>
+        </section>
+    </footer>
     </main>
 </body>
+
 </html>

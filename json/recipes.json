@@ -79,6 +79,11 @@
           "id": 9,
           "body": "hhe",
           "userId": 3
+        },
+        {
+          "id": 10,
+          "body": "hahah",
+          "userId": 1
         }
       ]
     },
@@ -144,6 +149,16 @@
         {
           "id": 7,
           "body": "yoo odoo shuud nemegdeed ehellee ynztaiiii",
+          "userId": 1
+        },
+        {
+          "id": 8,
+          "body": "asjhf",
+          "userId": 1
+        },
+        {
+          "id": 9,
+          "body": "hehe",
           "userId": 1
         }
       ]
@@ -1257,6 +1272,13 @@
       "reviewCount": 39,
       "mealType": [
         "Оройн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "ashjfhgsa",
+          "userId": 1
+        }
       ]
     },
     {

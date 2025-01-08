@@ -1,71 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хоолны дэлгэрэнгүй</title>
+    <meta name="description" content="Hungry App - Хоолны жорын дэлгэрэнгүй мэдээлэл. Орц найрлага, хийх дараалал, үнэлгээ болон сэтгэгдлүүд.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, хоол хийх, орц найрлага, хийх дараалал">
+    <meta name="author" content="Hungry App Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Hungry App - Хоолны жорын дэлгэрэнгүй">
+    <meta property="og:description" content="Хоолны жорын дэлгэрэнгүй мэдээлэл. Орц найрлага, хийх дараалал, үнэлгээ болон сэтгэгдлүүд.">
+    <meta property="og:image" content="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg">
+    <meta property="og:url" content="http://localhost:3000/htmls/hool_detail.html">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/css/hool_detail.css" as="style">
+    <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
+    <link rel="canonical" href="http://localhost:3000/htmls/hool_detail.html" />
+    <link rel="alternate" href="http://localhost:3000/htmls/hool_detail.html" hreflang="mn" />
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Hungry App - Хоолны жорын дэлгэрэнгүй | Орц, найрлага, хийх дараалал</title>
     <link rel="stylesheet" href="/css/hool_detail.css">
-    <!--body доторх хэсгээр оролдоогүй. Хэрвээ хуучнаар нь харахаар бол яг энэ доор байгаа script хэсгийг арилгаарай.
-    Зөвхөн food хэсгээс "Жор харах" дарах үед Js ажиллана. Like, Comment ажиллахгүй. 
-    URL дээр id гэсний ард нь 1-30 хооронд тоо оруулсан ч болно.-->
+    <script src="/register-sw.js" defer></script>
     <script src="/Javascript/food-detail.js" defer></script>
 </head>
 
 <body>
-    <header>
-        <a class="logo" href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Logo" width="45" height="45">
+    <a href="#main-content" class="skip-link visually-hidden">Үндсэн агуулга руу очих</a>
+    
+    <header role="banner">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас руу буцах">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
 
         <section class="search-bar">
-            <input type="text" name="search" id="search-bar" placeholder="Хоолны нэр">
-            <section class="dropdown-container"></section>
+            <label for="search-bar" class="visually-hidden">Хоолны нэрээр хайх</label>
+            <input type="search" 
+                   name="search" 
+                   id="search-bar" 
+                   placeholder="Хоолны нэр"
+                   aria-label="Хоолны нэрээр хайх">
+            <section class="dropdown-container" aria-live="polite"></section>
         </section>
 
-        <section class="icons">
-            <a href="nuur.html"><img src="/iconpic/log-out.png" alt="log-out"></a>
-            <a href="fridge.html"><img src="/iconpic/fridge.png" alt="fridge" id="hurgugch"></a>
-            <a href="plan.html"><img src="/iconpic/plan.png" alt="plan" id="tuluvluguu"></a>
-            <a href="food.html"><img src="/iconpic/food.png" alt="food" id="hool"></a>
-            <a href="hereglegch.html"><img src="/iconpic/profile.png" alt="profile" id="hhereglegch"></a>
-        </section>
+        <nav class="icons" aria-label="Үндсэн цэс" role="navigation">
+            <a href="nuur.html" aria-label="Системээс гарах">
+                <img src="/iconpic/log-out.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Гарах</span>
+            </a>
+            <a href="fridge.html" aria-label="Хөргөгч рүү очих">
+                <img src="/iconpic/fridge.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хөргөгч</span>
+            </a>
+            <a href="plan.html" aria-label="Төлөвлөгөө рүү очих">
+                <img src="/iconpic/plan.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Төлөвлөгөө</span>
+            </a>
+            <a href="food.html" aria-label="Хоолны жагсаалт руу очих">
+                <img src="/iconpic/food.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хоол</span>
+            </a>
+            <a href="hereglegch.html" aria-label="Хэрэглэгчийн профайл руу очих">
+                <img src="/iconpic/profile.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Профайл</span>
+            </a>
+        </nav>
     </header>
-    <main>
-        <section class="recipe-image">
-            <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-                alt="Бяслагтай макарон">
-            <article class="icon">
-                <section class="icons-container">
-                    <img src="/iconpic/heart.png" alt="like">
-                    <img src="/iconpic/comment.png" alt="comment">
+
+    <main id="main-content" role="main" tabindex="-1">
+        <article class="recipe-details">
+            <h1 class="visually-hidden">Хоолны жорын дэлгэрэнгүй мэдээлэл</h1>
+            
+            <section class="recipe-image" aria-label="Хоолны зураг">
+                <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
+                     alt="Бяслагтай макарон"
+                     width="800"
+                     height="600"
+                     loading="eager">
+                     
+                <div class="icon" role="group" aria-label="Үнэлгээ болон сэтгэгдэл">
+                    <div class="icons-container">
+                        <button type="button" aria-label="Таалагдлаа" aria-pressed="false">
+                            <img src="/iconpic/heart.png" alt="" aria-hidden="true">
+                        </button>
+                        <button type="button" aria-label="Сэтгэгдэл бичих" aria-expanded="false">
+                            <img src="/iconpic/comment.png" alt="" aria-hidden="true">
+                        </button>
+                    </div>
+                    
+                    <div class="rating-container" role="group" aria-label="Үнэлгээ">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <span class="visually-hidden">5 оноо өгсөн</span>
+                    </div>
+                </div>
+                
+                <section class="suggested-foods" aria-label="Санал болгож буй бусад хоол">
+                    <!-- This will be populated by JavaScript -->
                 </section>
-                <nav class="rating-container">
-                    <img src="/iconpic/pizza.png" alt="unelgee">
-                    <img src="/iconpic/pizza.png" alt="unelgee">
-                    <img src="/iconpic/pizza.png" alt="unelgee">
-                    <img src="/iconpic/pizza.png" alt="unelgee">
-                    <img src="/iconpic/pizza.png" alt="unelgee">
-                </nav>
-            </article>
-            <section class="suggested-foods">
+            </section>
+
+            <section class="recipe-content" aria-label="Жорын мэдээлэл">
                 <!-- This will be populated by JavaScript -->
             </section>
-        </section>
-        <section class="recipe-content">
-        </section>
-        <section class="comments">
-            <h3>Сэтгэгдэл</h3>
-            <form class="comment-input">
-                <input type="text" placeholder="Сэтгэгдэл үлдээх" id="commentInput">
-                <button type="submit">Нийтлэх</button>
-            </form>
-            <div class="comments-container">
-                <!-- Comments will be populated here by JavaScript -->
-            </div>
-        </section>
+
+            <section class="comments" aria-label="Сэтгэгдлүүд">
+                <h2>Сэтгэгдэл</h2>
+                <form class="comment-input" aria-label="Сэтгэгдэл бичих">
+                    <label for="commentInput" class="visually-hidden">Сэтгэгдэл</label>
+                    <input type="text" 
+                           id="commentInput" 
+                           placeholder="Сэтгэгдэл үлдээх"
+                           aria-label="Сэтгэгдэл бичих">
+                    <button type="submit">Нийтлэх</button>
+                </form>
+                <div class="comments-container" aria-live="polite">
+                    <!-- Comments will be populated here by JavaScript -->
+                </div>
+            </section>
+        </article>
     </main>
-    <footer>
+
+    <footer role="contentinfo">
         <section class="recipe_categories">
             <h3>Жор төрөл</h3>
             <ul>
@@ -110,6 +179,33 @@
             </ul>
         </section>
     </footer>
+
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #4CAF50;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
 </body>
 
 </html>
