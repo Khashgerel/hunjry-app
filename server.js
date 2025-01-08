@@ -4,9 +4,7 @@ const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const apiDocs = require('./api-docs.json');
 const db = require('./database.js');
-const sharp = require('sharp');
 const compression = require('compression');
-
 const app = express();
 let PORT = 3000;
 
@@ -213,40 +211,14 @@ app.get('*', (req, res) => {
 });
 
 app.use(express.static('public', {
-    maxAge: '1y',
     setHeaders: (res, path) => {
-        if (path.endsWith('.html')) {
-            res.setHeader('Cache-Control', 'no-cache');
-        } else if (path.match(/\.(css|js|jpg|png|gif|ico)$/)) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000');
+        if (path.endsWith('.js')) {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
         }
     }
 }));
-
-app.use('/images', async (req, res, next) => {
-    if (!req.url.match(/\.(jpg|jpeg|png|gif)$/i)) {
-        return next();
-    }
-
-    const width = parseInt(req.query.width) || 800; // Default width
-    const imagePath = path.join(__dirname, 'public', 'images', req.url);
-
-    try {
-        const resizedImage = await sharp(imagePath)
-            .resize(width, null, {
-                withoutEnlargement: true,
-                fit: 'inside'
-            })
-            .webp({ quality: 80 })
-            .toBuffer();
-
-        res.setHeader('Content-Type', 'image/webp');
-        res.setHeader('Cache-Control', 'public, max-age=31536000');
-        res.send(resizedImage);
-    } catch (error) {
-        next();
-    }
-});
 
 async function initializeDatabase() {
     try {
@@ -273,21 +245,3 @@ const server = app.listen(PORT)
     .on('listening', () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     });
-
-// Optimize image encoding
-const optimizeImage = async (imagePath, width) => {
-  return sharp(imagePath)
-    .resize(width, null, {
-      withoutEnlargement: true,
-      fit: 'inside'
-    })
-    .webp({ 
-      quality: 80,
-      effort: 6,
-      lossless: false
-    })
-    .toBuffer();
-};
-
-// Use compression middleware
-app.use(compression());
