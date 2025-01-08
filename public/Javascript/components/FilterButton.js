@@ -26,4 +26,4 @@ export default class FilterButton extends HTMLElement {
     }
 }
 
-customElements.define('filter-btn', FilterButton); 
+customElements.define('filter-btn', FilterButton);

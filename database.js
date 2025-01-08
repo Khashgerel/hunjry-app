@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-const fs = require('fs');
 
 const pool = new Pool({
     host: 'localhost',
@@ -10,6 +9,7 @@ const pool = new Pool({
 });
 
 const db = {
+    // Get user by ID
     async getUser(userId) {
         try {
             const { rows } = await pool.query(
@@ -22,6 +22,8 @@ const db = {
             return null;
         }
     },
+
+    // Get user by username (for login)
     async getUserByUsername(username) {
         try {
             const { rows } = await pool.query(
@@ -34,6 +36,8 @@ const db = {
             return null;
         }
     },
+
+    // Create new user
     async createUser(username, password, address, phoneNumber, email) {
         try {
             const { rows } = await pool.query(
@@ -50,6 +54,7 @@ const db = {
         }
     },
 
+    // Update user
     async updateUser(userId, userData) {
         try {
             const { rows } = await pool.query(
@@ -69,43 +74,27 @@ const db = {
         }
     },
 
+    // Import users from JSON
     async importUsersFromJson() {
         try {
-            const usersData = JSON.parse(fs.readFileSync('json/user.json', 'utf8'));
-            
-            for (const user of usersData) {
-                // Validate required fields
-                if (!user.userId || !user.username) {
-                    console.warn(`Skipping invalid user:`, user);
-                    continue;
-                }
+            const userData = require('./json/user.json');
 
-                // Check if user already exists
-                const existingUser = await pool.query(
-                    'SELECT user_id FROM users WHERE user_id = $1',
-                    [user.userId]
-                );
-
-                if (existingUser.rows.length === 0) {
+            for (const user of userData.users) {
+                console.log(`Importing user: ${user.username}`);
+                try {
+                    // Insert user
                     await pool.query(
-                        `INSERT INTO users (
-                            user_id,
-                            username,
-                            email,
-                            password_hash,
-                            created_at,
-                            updated_at
-                        ) VALUES ($1, $2, $3, $4, NOW(), NOW())`,
-                        [
-                            user.userId,
-                            user.username,
-                            user.email || null,
-                            user.password_hash || null
-                        ]
+                        `INSERT INTO users 
+                        (user_id, username, password, address, phone_number, email) 
+                        VALUES ($1, $2, $3, $4, $5, $6) 
+                        ON CONFLICT (user_id) DO NOTHING`,
+                        [user.userId, user.username, user.password, user.address, user.phoneNumber, user.email]
                     );
+                } catch (error) {
+                    console.error(`Error importing user ${user.username}:`, error);
                 }
             }
-            console.log('Users imported successfully');
+            return true;
         } catch (error) {
             console.error('Error importing users:', error);
             throw error;
@@ -113,6 +102,7 @@ const db = {
     }
 };
 
+// Test database connection
 async function testConnection() {
     try {
         const client = await pool.connect();

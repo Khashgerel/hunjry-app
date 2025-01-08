@@ -55,31 +55,6 @@ app.get('/api/users', (req, res) => {
     res.json(userData);
 });
 
-app.post('/api/users', (req, res) => {
-    const {Username, Password, likedfoods, Address, Phonenumber, Email } = req.body;
-    try {
-        const usersPath = path.join(__dirname, 'json', 'user.json');
-        const usersData = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
-
-        const newUser = {
-            userId: userData.users.length > 0 ? Math.max(...userData.users.map(c => c.id)) + 1 : 1,
-            username: Username,
-            password: Password,
-            likedFoods: likedfoods,
-            address: Address,
-            phonenumber: Phonenumber,
-            email: Email
-        }
-
-        usersData.users.push(newUser);
-        fs.writeFileSync(usersPath, JSON.stringify(usersData, null, 2));
-        res.json({ success: true, message: 'User added successfully' });
-    } catch (error) {
-        console.error("Error adding new user:", error);
-        res.status(469).json({ success: false, message: 'Хэрэглэгч нэмэх үед алдаа гарлаа' });
-    }
-})
-
 app.post('/api/comments', (req, res) => {
     const { recipeId, userId, body } = req.body;
 
