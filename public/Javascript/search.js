@@ -1,5 +1,4 @@
 let recipesData = [];
-
 async function initializeSearch() {  //huudas achaalahad serverees recipe uudiig awna
     try {
         const response = await fetch('/api/recipes');

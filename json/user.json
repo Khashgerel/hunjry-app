@@ -36,10 +36,9 @@
       "username": "Aiym",
       "password": "iiiiiiii",
       "likedFoods": [
-        3,
         5,
-        2,
-        8
+        8,
+        3
       ],
       "address": "UB",
       "phoneNumber": 99854132,
