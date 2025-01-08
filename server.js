@@ -210,12 +210,15 @@ app.get('*', (req, res) => {
     res.redirect('/htmls/login.html');
 });
 
+app.use(compression());
+
 app.use(express.static('public', {
+    maxAge: '1y',
     setHeaders: (res, path) => {
-        if (path.endsWith('.js')) {
-            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-            res.setHeader('Pragma', 'no-cache');
-            res.setHeader('Expires', '0');
+        if (path.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-cache');
+        } else if (path.match(/\.(css|js|jpg|png|gif|ico)$/)) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000');
         }
     }
 }));
